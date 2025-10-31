@@ -55,6 +55,8 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({
     (notification) => !notification.read,
   ).length
 
+  // TODO: Add API integration to fetch real notifications
+
   return (
       <div className="bg-white rounded-xl shadow-lg w-full max-w-md mx-4 p-4">
         {/* Header */}
