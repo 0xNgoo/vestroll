@@ -6,6 +6,7 @@ import Image from "next/image";
 import InputField from "@/components/InputField";
 import Dropdown from "@/components/ui/dropdown";
 import { z } from "zod";
+import { currencies } from "@/util/constant";
 
 interface ContractFormData {
   contractType: number;
@@ -63,25 +64,6 @@ const networks = [
   { label: "Polygon", icon: "/eth.svg" },
   { label: "Binance Smart Chain", icon: "/eth.svg" },
   { label: "Arbitrum", icon: "/eth.svg" },
-];
-
-const currencies = [
-  {
-    label: "USD",
-    icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA2MCI+PGNsaXBQYXRoIGlkPSJjIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIzMCIvPjwvY2xpcFBhdGg+PGcgY2xpcC1wYXRoPSJ1cmwoI2MpIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIGZpbGw9IiNiMjIyMzQiLz48ZyBmaWxsPSIjZmZmIj48cmVjdCB5PSI4IiB3aWR0aD0iNjAiIGhlaWdodD0iNCIvPjxyZWN0IHk9IjI0IiB3aWR0aD0iNjAiIGhlaWdodD0iNCIvPjxyZWN0IHk9IjQwIiB3aWR0aD0iNjAiIGhlaWdodD0iNCIvPjxyZWN0IHk9IjU2IiB3aWR0aD0iNjAiIGhlaWdodD0iNCIvPjwvZz48cmVjdCB3aWR0aD0iMjQiIGhlaWdodD0iMjgiIGZpbGw9IiMzYzNiNmUiLz48L2c+PC9zdmc+"
-  },
-  {
-    label: "GBP",
-    icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA2MCI+PGNsaXBQYXRoIGlkPSJjIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIzMCIvPjwvY2xpcFBhdGg+PGcgY2xpcC1wYXRoPSJ1cmwoI2MpIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIGZpbGw9IiMwMTIxNjkiLz48cGF0aCBkPSJNMCAwbDYwIDYwTTYwIDBMMCA2MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEyIi8+PHBhdGggZD0iTTAgMGw2MCA2ME02MCAwTDAgNjAiIHN0cm9rZT0iI2M4MTAyZSIgc3Ryb2tlLXdpZHRoPSI4Ii8+PHBhdGggZD0iTTMwIDB2NjBNMCAzMGg2MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIwIi8+PHBhdGggZD0iTTMwIDB2NjBNMCAzMGg2MCIgc3Ryb2tlPSIjYzgxMDJlIiBzdHJva2Utd2lkdGg9IjEyIi8+PC9nPjwvc3ZnPg=="
-  },
-  {
-    label: "FR",
-    icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA2MCI+PGNsaXBQYXRoIGlkPSJjIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIzMCIvPjwvY2xpcFBhdGg+PGcgY2xpcC1wYXRoPSJ1cmwoI2MpIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIGZpbGw9IiNmZmYiLz48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iNjAiIGZpbGw9IiMwMDU1QTQiLz48cmVjdCB4PSI0MCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRUY0MTM1Ii8+PC9nPjwvc3ZnPg=="
-  },
-  {
-    label: "YEN",
-    icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA2MCI+PGNsaXBQYXRoIGlkPSJjIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIzMCIvPjwvY2xpcFBhdGg+PGcgY2xwLXBhdGg9InVybCgjYykiPjxyZWN0IHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjE4IiBmaWxsPSIjYmMwMDJkIi8+PC9nPjwvc3ZnPg=="
-  },
 ];
 
 const paymentTypes = [

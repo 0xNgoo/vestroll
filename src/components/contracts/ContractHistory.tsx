@@ -7,6 +7,7 @@ import Image from "next/image";
 import EmptyState from "../ui/EmptyState";
 import { cn } from "@/utils/classNames";
 import FilterModal, { FilterSelection } from "./ui/FilterModal";
+import Link from "next/link";
 
 const getStatusClass = (status: Contract['status']) => {
     switch (status) {
@@ -23,6 +24,7 @@ const getStatusClass = (status: Contract['status']) => {
 
 const ContractHistoryCard = (contract: Contract) => {
     return (
+      <Link href={`/app/contracts/${contract.id}?title=${encodeURIComponent(contract.title)}`}>
         <div className="min-w-[250px] bg-white rounded-xl space-y-2 p-4">
             <div className="flex justify-between">
                 <Image src={'/contract-icon.png'} alt="icon" width={40} height={40}/>
@@ -49,6 +51,7 @@ const ContractHistoryCard = (contract: Contract) => {
                 </div>
             </div>
         </div>
+      </Link>
     );
 }
 

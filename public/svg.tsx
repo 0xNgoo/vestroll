@@ -1290,3 +1290,18 @@ export const DollarCircleIcon = () => (
 <path d="M20.0026 36.6667C29.2073 36.6667 36.6693 29.2048 36.6693 20C36.6693 10.7953 29.2073 3.33334 20.0026 3.33334C10.7979 3.33334 3.33594 10.7953 3.33594 20C3.33594 29.2048 10.7979 36.6667 20.0026 36.6667Z" stroke="#5E2A8C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
 );
+
+export const CalendarIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 2V5" stroke="#5E2A8C" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M16 2V5" stroke="#5E2A8C" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M3.5 9.09H20.5" stroke="#5E2A8C" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="#5E2A8C" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M15.6976 13.7H15.7066" stroke="#5E2A8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M15.6976 16.7H15.7066" stroke="#5E2A8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M11.9945 13.7H12.0035" stroke="#5E2A8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M11.9945 16.7H12.0035" stroke="#5E2A8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M8.29138 13.7H8.30036" stroke="#5E2A8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M8.29138 16.7H8.30036" stroke="#5E2A8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+);
