@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CloudUpload, Settings2 } from "lucide-react";
 import UploadImageModal from "./(components)/UploadImageModal";
+import PreferencesPage from "./preferences/page";
 
 interface SectionCardProps {
   title: string;
@@ -65,11 +66,7 @@ export default function Page() {
   const renderTabContent = () => {
     switch (activeTab) {
       case "preferences":
-        return (
-          <div className="text-black">
-            <p>This is Preferences page</p>
-          </div>
-        );
+        return <PreferencesPage />;
       case "notifications":
         return (
           <div className="text-black">
