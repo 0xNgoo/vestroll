@@ -111,7 +111,7 @@ const TeamManagementPage: React.FC = () => {
 
       {/* Main Content */}
       <main className="p-4">
-      <section className="max-w-5xl px-6 sm:p-6 bg-background-b0 rounded-xl">
+      <section className="max-w-5xl p-6 bg-background-b0 rounded-xl">
         {/* Page Title */}
         <div className="">
           <p className="text-text-primary text-sm">Personal Information</p>
