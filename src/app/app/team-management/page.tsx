@@ -21,6 +21,7 @@ import { StatsBar } from "./components/StatsBar";
 import { Button } from "@/components/ui/button";
 import { EmployeeList } from "./components/EmployeeList";
 import TeamMgtTimeSheet from "@/components/team-mgt/time-tracking";
+import TeamMgtMilestone from "@/components/team-mgt/milestone";
 
 const TeamManagementDashboard = () => {
   const [activeTab, setActiveTab] = useState("Employees");
@@ -149,6 +150,7 @@ const TeamManagementDashboard = () => {
       case "Time off":
         return <CreateTimeOffForm employees={allEmployees} />;
       case "Milestone":
+        return <TeamMgtMilestone />
       case "Time tracking":
         return <TeamMgtTimeSheet />
       case "Expense":
