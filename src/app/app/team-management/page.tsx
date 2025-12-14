@@ -2,27 +2,24 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Plus } from "lucide-react";
 
 // Import all our new components
 import { NavigationTabs } from "./components/NavigationTabs";
 import { SearchFilterBar } from "./components/SearchFilterBar";
-import { EmployeeGrid } from "./components/EmployeeGrid";
-import { EmployeeMobileCard } from "./components/EmployeeMobileCard";
 import { TeamEmptyState } from "./components/TeamEmptyState";
 import { Pagination } from "./components/Pagination";
 import { FilterModal } from "./components/FilterModal";
-import { EmptyState } from "./components/EmptyState";
 import { CreateFirstContact } from "./components/CreateFirstContact";
 import { generateMockEmployees } from "./utils";
 import { ExportDropdown } from "./components/ExportDropDown";
-import { CreateTimeOffForm } from "./components/timeOff/CreateTimeOffForm";
 import { StatsBar } from "./components/StatsBar";
-import { Button } from "@/components/ui/button";
 import { EmployeeList } from "./components/EmployeeList";
 import TeamMgtTimeSheet from "@/components/team-mgt/time-tracking";
 import TeamMgtMilestone from "@/components/team-mgt/milestone";
 import TeamMgtExpense from "@/components/team-mgt/expense";
+import { Plus } from "lucide-react";
+import TeamMgtTimeoff from "@/components/team-mgt/timeoff";
+import Link from "next/link";
 
 const TeamManagementDashboard = () => {
   const [activeTab, setActiveTab] = useState("Employees");
@@ -149,7 +146,7 @@ const TeamManagementDashboard = () => {
           </>
         );
       case "Time off":
-        return <CreateTimeOffForm employees={allEmployees} />;
+        return <TeamMgtTimeoff />;
       case "Milestone":
         return <TeamMgtMilestone />
       case "Time tracking":
@@ -172,10 +169,17 @@ const TeamManagementDashboard = () => {
                 Team management
               </h1>
             </div>
-            <ExportDropdown
-              isOpen={isExportOpen}
-              onToggle={() => setIsExportOpen(!isExportOpen)}
-            />
+            <div className="flex gap-2">
+              <ExportDropdown
+                isOpen={isExportOpen}
+                onToggle={() => setIsExportOpen(!isExportOpen)}
+              />
+              {activeTab === "Time off" && (
+                <Link className="flex items-center gap-2 bg-primary-500 text-white h-10 px-4 rounded-lg" href={"/app/team-management/create-timeoff"}>
+                  <Plus /> Create request
+                </Link>
+              )}
+            </div>
           </div>
           <NavigationTabs activeTab={activeTab} onTabChange={setActiveTab} />
         </div>

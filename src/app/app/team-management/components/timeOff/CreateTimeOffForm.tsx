@@ -1,3 +1,5 @@
+"use client";
+
 // This component contains the entire form for creating a new time off record.
 import React, { useState, useRef } from "react";
 import {
@@ -73,10 +75,10 @@ const formatDate = (dateString: string): string => {
   if (!dateString) return '';
   const date = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
-  
+
   // To handle timezone issues and get the correct date
   const utcDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-  
+
   let day = utcDate.getDate().toString();
   const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(utcDate);
   const year = utcDate.getFullYear();
@@ -200,22 +202,22 @@ const FileUpload = ({ file, onChange }: { file: File | null; onChange: (file: Fi
       const droppedFile = e.dataTransfer.files[0];
       if (droppedFile) onChange(droppedFile);
     };
-  
+
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
     };
-  
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const selectedFile = e.target.files?.[0] || null;
       onChange(selectedFile);
     };
-  
+
     return (
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Attachment (Optional)
         </label>
-        
+
         {file ? (
             // UI to show when a file is selected
             <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 flex items-center justify-between">
@@ -228,8 +230,8 @@ const FileUpload = ({ file, onChange }: { file: File | null; onChange: (file: Fi
                         <p className="text-xs text-gray-500">{formatFileSize(file.size)}</p>
                     </div>
                 </div>
-                <button 
-                    onClick={() => onChange(null)} 
+                <button
+                    onClick={() => onChange(null)}
                     className="text-gray-500 hover:text-red-600 p-2 rounded-full transition-colors flex-shrink-0"
                     aria-label="Remove file"
                 >
