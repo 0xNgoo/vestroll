@@ -3,22 +3,24 @@
 import { Button } from "../ui/button";
 import { useState } from "react";
 
-export const StatusModal = ({tabStatus, handleStatusModal}: {tabStatus: string, handleStatusModal: (show: boolean) => void}) => {
-    const [status, setStatus] = useState(tabStatus);
+export const StatusModal = ({
+    tabStatus,
+    handleStatusModal,
+    onConfirm
+}: {
+    tabStatus: string,
+    handleStatusModal: (show: boolean) => void,
+    onConfirm: (status: string, reason?: string) => void
+}) => {
     const [reason, setReason] = useState("");
     const [error, setError] = useState("");
-
-    const handleApprove = () => {
-        setStatus("Approved");
-        handleStatusModal(false);
-    };
 
     const handleReject = () => {
         if (!reason.trim()) {
             setError("Please provide a reason for rejection.");
             return;
         }
-        setStatus("Rejected");
+        onConfirm("Rejected", reason);
         handleStatusModal(false);
         setReason("");
         setError("");

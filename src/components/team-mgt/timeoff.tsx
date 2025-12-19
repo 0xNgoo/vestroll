@@ -2,8 +2,7 @@
 
 import EmptyState from "@/components/ui/EmptyState";
 import { cn } from "@/utils/classNames";
-import { Timeoff, timeoffs } from "@/data/team-mgt";
-import { currencies } from "@/util/constant";
+import { Timeoff, timeoffs as initialTimeoffs } from "@/data/team-mgt";
 import { useState } from "react";
 import { getStatusIcon, getStatusClass, getStatusText } from "./status-lib";
 import { createPortal } from "react-dom";
@@ -22,6 +21,9 @@ function TeamMgtTimeoff() {
     const [showStatusModal, setShowStatusModal] = useState(false);
     const handleStatusModal = (show: boolean) => setShowStatusModal(show);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+    // Lift data to state for updates
+    const [timeoffs, setTimeoffs] = useState(initialTimeoffs);
 
     // use-sort hook
     const {
@@ -46,6 +48,32 @@ function TeamMgtTimeoff() {
 
     const handleFilterApply = (newFilters: Record<string, string>) => {
         setFilters(newFilters);
+    };
+
+    const handleApprove = () => {
+        if (!selectedTimeoff) return;
+
+        // Update the selected item
+        const updatedTimeoff = { ...selectedTimeoff, status: "Approved" as const };
+        setSelectedTimeoff(updatedTimeoff);
+
+        // Update in the list
+        setTimeoffs(prev =>
+            prev.map(item => item.id === selectedTimeoff.id ? updatedTimeoff : item)
+        );
+    };
+
+    const handleReject = (status: string, reason?: string) => {
+        if (!selectedTimeoff) return;
+
+        // Update the selected item
+        const updatedTimeoff = { ...selectedTimeoff, status: "Rejected" as const };
+        setSelectedTimeoff(updatedTimeoff);
+
+        // Update in the list
+        setTimeoffs(prev =>
+            prev.map(item => item.id === selectedTimeoff.id ? updatedTimeoff : item)
+        );
     };
 
     const filterConfig = [
@@ -242,7 +270,8 @@ function TeamMgtTimeoff() {
       ? <DetailsView
             data={selectedTimeoff}
             onBack={() => setSelectedTimeoff(null)}
-            onStatusChange={() => setShowStatusModal(true)}
+            onReject={() => setShowStatusModal(true)}
+            onApprove={handleApprove}
             config={timeoffConfig}
         />
       : <TimeoffList />}
@@ -252,6 +281,7 @@ function TeamMgtTimeoff() {
         <StatusModal
             tabStatus={selectedTimeoff?.status || "Pending"}
             handleStatusModal={handleStatusModal}
+            onConfirm={handleReject}
         />,
         document.body
       )}

@@ -6,14 +6,16 @@ import { cn } from "@/utils/classNames";
 interface DetailsViewProps<T> {
   data: T | null;
   onBack: () => void;
-  onStatusChange: () => void;
+  onReject: () => void;
+  onApprove: () => void;
   config: DetailsConfig<T>;
 }
 
 export function DetailsView<T>({
   data,
   onBack,
-  onStatusChange,
+  onReject,
+  onApprove,
   config,
 }: DetailsViewProps<T>) {
   if (!data) return null;
@@ -39,14 +41,14 @@ export function DetailsView<T>({
           {/* reject & approve btns */}
           <div className="flex items-center gap-2">
             <button
-              onClick={onStatusChange}
+              onClick={onReject}
               disabled={status === "Approved" || status === "Rejected"}
               className="flex gap-2 items-center px-4 py-2 text-sm font-medium text-primary-500 border border-primary-500 rounded-lg hover:bg-red-700 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Reject <XIcon size={16}/>
             </button>
             <button
-              onClick={onStatusChange}
+              onClick={onApprove}
               disabled={status === "Approved"}
               className="flex gap-2 items-center px-4 py-2 text-sm font-medium text-white bg-primary-500 rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >

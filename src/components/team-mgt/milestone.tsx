@@ -2,7 +2,7 @@
 
 import EmptyState from "@/components/ui/EmptyState";
 import { cn } from "@/utils/classNames";
-import { Milestone, milestones } from "@/data/team-mgt";
+import { Milestone, milestones as initialMilestones } from "@/data/team-mgt";
 import { currencies } from "@/util/constant";
 import { useState } from "react";
 import { getStatusIcon, getStatusClass, getStatusText } from "./status-lib";
@@ -23,6 +23,9 @@ function TeamMgtMilestone() {
     const handleStatusModal = (show: boolean) => setShowStatusModal(show);
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+    // Lift data to state for updates
+    const [milestones, setMilestones] = useState(initialMilestones);
 
     // use-sort hook
     const {
@@ -47,6 +50,32 @@ function TeamMgtMilestone() {
 
     const handleFilterApply = (newFilters: Record<string, string>) => {
         setFilters(newFilters);
+    };
+
+    const handleApprove = () => {
+        if (!selectedMilestone) return;
+
+        // Update the selected item
+        const updatedMilestone = { ...selectedMilestone, status: "Approved" as const };
+        setSelectedMilestone(updatedMilestone);
+
+        // Update in the list
+        setMilestones(prev =>
+            prev.map(item => item.id === selectedMilestone.id ? updatedMilestone : item)
+        );
+    };
+
+    const handleReject = (status: string, reason?: string) => {
+        if (!selectedMilestone) return;
+
+        // Update the selected item
+        const updatedMilestone = { ...selectedMilestone, status: "Rejected" as const };
+        setSelectedMilestone(updatedMilestone);
+
+        // Update in the list
+        setMilestones(prev =>
+            prev.map(item => item.id === selectedMilestone.id ? updatedMilestone : item)
+        );
     };
 
     const filterConfig = [
@@ -256,7 +285,8 @@ function TeamMgtMilestone() {
       ? <DetailsView
             data={selectedMilestone}
             onBack={() => setSelectedMilestone(null)}
-            onStatusChange={() => setShowStatusModal(true)}
+            onReject={() => setShowStatusModal(true)}
+            onApprove={handleApprove}
             config={milestoneConfig}
         />
       : <MilestoneList />}
@@ -266,6 +296,7 @@ function TeamMgtMilestone() {
         <StatusModal
             tabStatus={selectedMilestone?.status || "Pending"}
             handleStatusModal={handleStatusModal}
+            onConfirm={handleReject}
         />,
         document.body
       )}

@@ -2,7 +2,7 @@
 
 import EmptyState from "@/components/ui/EmptyState";
 import { cn } from "@/utils/classNames";
-import { Expense, expenses } from "@/data/team-mgt";
+import { Expense, expenses as initialExpenses } from "@/data/team-mgt";
 import { currencies } from "@/util/constant";
 import { useState } from "react";
 import { getStatusIcon, getStatusClass, getStatusText } from "./status-lib";
@@ -23,6 +23,9 @@ function TeamMgtExpense() {
     const handleStatusModal = (show: boolean) => setShowStatusModal(show);
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+    // Lift data to state for updates
+    const [expenses, setExpenses] = useState(initialExpenses);
 
     // use-sort hook
     const {
@@ -47,6 +50,32 @@ function TeamMgtExpense() {
 
     const handleFilterApply = (newFilters: Record<string, string>) => {
         setFilters(newFilters);
+    };
+
+    const handleApprove = () => {
+        if (!selectedExpense) return;
+
+        // Update the selected item
+        const updatedExpense = { ...selectedExpense, status: "Approved" as const };
+        setSelectedExpense(updatedExpense);
+
+        // Update in the list
+        setExpenses(prev =>
+            prev.map(item => item.id === selectedExpense.id ? updatedExpense : item)
+        );
+    };
+
+    const handleReject = (status: string, reason?: string) => {
+        if (!selectedExpense) return;
+
+        // Update the selected item
+        const updatedExpense = { ...selectedExpense, status: "Rejected" as const };
+        setSelectedExpense(updatedExpense);
+
+        // Update in the list
+        setExpenses(prev =>
+            prev.map(item => item.id === selectedExpense.id ? updatedExpense : item)
+        );
     };
 
     const filterConfig = [
@@ -255,7 +284,8 @@ function TeamMgtExpense() {
       ? <DetailsView
             data={selectedExpense}
             onBack={() => setSelectedExpense(null)}
-            onStatusChange={() => setShowStatusModal(true)}
+            onReject={() => setShowStatusModal(true)}
+            onApprove={handleApprove}
             config={expenseConfig}
         />
       : <ExpenseList />}
@@ -265,6 +295,7 @@ function TeamMgtExpense() {
         <StatusModal
             tabStatus={selectedExpense?.status || "Pending"}
             handleStatusModal={handleStatusModal}
+            onConfirm={handleReject}
         />,
         document.body
       )}

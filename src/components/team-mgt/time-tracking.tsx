@@ -3,7 +3,7 @@
 import EmptyState from "@/components/ui/EmptyState";
 import { Clock2Icon } from "lucide-react";
 import { cn } from "@/utils/classNames";
-import { Timesheet, timesheets } from "@/data/team-mgt";
+import { Timesheet, timesheets as initialTimesheets } from "@/data/team-mgt";
 import { currencies } from "@/util/constant";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -23,6 +23,9 @@ function TeamMgtTimeSheet() {
     const handleStatusModal = (show: boolean) => setShowStatusModal(show);
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+    // Lift data to state for updates
+    const [timesheets, setTimesheets] = useState(initialTimesheets);
 
     // use-sort hook
     const {
@@ -47,6 +50,32 @@ function TeamMgtTimeSheet() {
 
     const handleFilterApply = (newFilters: Record<string, string>) => {
         setFilters(newFilters);
+    };
+
+    const handleApprove = () => {
+        if (!selectedTimesheet) return;
+
+        // Update the selected item
+        const updatedTimesheet = { ...selectedTimesheet, status: "Approved" as const };
+        setSelectedTimesheet(updatedTimesheet);
+
+        // Update in the list
+        setTimesheets(prev =>
+            prev.map(item => item.id === selectedTimesheet.id ? updatedTimesheet : item)
+        );
+    };
+
+    const handleReject = (status: string, reason?: string) => {
+        if (!selectedTimesheet) return;
+
+        // Update the selected item
+        const updatedTimesheet = { ...selectedTimesheet, status: "Rejected" as const };
+        setSelectedTimesheet(updatedTimesheet);
+
+        // Update in the list
+        setTimesheets(prev =>
+            prev.map(item => item.id === selectedTimesheet.id ? updatedTimesheet : item)
+        );
     };
 
     const filterConfig = [
@@ -256,7 +285,8 @@ function TeamMgtTimeSheet() {
       ? <DetailsView
             data={selectedTimesheet}
             onBack={() => setSelectedTimesheet(null)}
-            onStatusChange={() => setShowStatusModal(true)}
+            onReject={() => setShowStatusModal(true)}
+            onApprove={handleApprove}
             config={timesheetConfig}
         />
       : <TimesheetList />}
@@ -266,6 +296,7 @@ function TeamMgtTimeSheet() {
         <StatusModal
             tabStatus={selectedTimesheet?.status || "Pending"}
             handleStatusModal={handleStatusModal}
+            onConfirm={handleReject}
         />,
         document.body
       )}
