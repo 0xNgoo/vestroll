@@ -7,3 +7,12 @@ export const RegisterSchema = z.object({
 });
 
 export type RegisterInput = z.infer<typeof RegisterSchema>;
+
+export const ResendOTPSchema = z.object({
+  email: z.preprocess(
+    (val) => (typeof val === "string" ? val.trim().toLowerCase() : val),
+    z.string().email("Invalid email format")
+  ),
+});
+
+export type ResendOTPInput = z.infer<typeof ResendOTPSchema>;

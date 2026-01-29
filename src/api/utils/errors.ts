@@ -27,3 +27,24 @@ export class InternalServerError extends AppError {
     super(message, 500);
   }
 }
+
+export class NotFoundError extends AppError {
+  constructor(message: string = "Resource not found") {
+    super(message, 404);
+  }
+}
+
+export class BadRequestError extends AppError {
+  constructor(message: string = "Bad request") {
+    super(message, 400);
+  }
+}
+
+export class TooManyRequestsError extends AppError {
+  constructor(
+    message: string = "Too many requests",
+    public retryAfter?: number
+  ) {
+    super(message, 429);
+  }
+}
