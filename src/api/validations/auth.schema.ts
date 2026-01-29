@@ -7,3 +7,16 @@ export const RegisterSchema = z.object({
 });
 
 export type RegisterInput = z.infer<typeof RegisterSchema>;
+
+export const VerifyEmailSchema = z.object({
+  email: z
+    .string()
+    .transform((email) => email.toLowerCase().trim())
+    .pipe(z.string().email("Invalid email format")),
+  otp: z
+    .string()
+    .length(6, "OTP must be exactly 6 digits")
+    .regex(/^\d{6}$/, "OTP must contain only digits"),
+});
+
+export type VerifyEmailInput = z.infer<typeof VerifyEmailSchema>;

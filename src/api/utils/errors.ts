@@ -27,3 +27,21 @@ export class InternalServerError extends AppError {
     super(message, 500);
   }
 }
+
+export class NotFoundError extends AppError {
+  constructor(message: string = "Resource not found") {
+    super(message, 404);
+  }
+}
+
+export class BadRequestError extends AppError {
+  constructor(message: string = "Bad request", errors: Record<string, unknown> | null = null) {
+    super(message, 400, errors);
+  }
+}
+
+export class ForbiddenError extends AppError {
+  constructor(message: string = "Access forbidden") {
+    super(message, 403);
+  }
+}

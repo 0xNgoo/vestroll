@@ -1,4 +1,5 @@
 import { db, emailVerifications } from "../db";
+import { OTP_EXPIRATION_MINUTES } from "./email-verification.service";
 import { UserService } from "./user.service";
 import { OTPService } from "./otp.service";
 import { ConflictError } from "../utils/errors";
@@ -24,8 +25,8 @@ export class AuthService {
       const otp = OTPService.generateOTP();
       const otpHash = await OTPService.hashOTP(otp);
 
-      // 5. Store OTP with 15-minute expiration
-      const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+      // 5. Store OTP with configured expiration
+      const expiresAt = new Date(Date.now() + OTP_EXPIRATION_MINUTES * 60 * 1000);
       await tx.insert(emailVerifications).values({
         userId: user.id,
         otpHash,
