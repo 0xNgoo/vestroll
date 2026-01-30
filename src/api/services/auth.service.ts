@@ -1,11 +1,12 @@
 import { db, emailVerifications, users } from "../db";
+import crypto from "crypto";
 import { UserService } from "./user.service";
 import { OTPService } from "./otp.service";
-import { 
-  ConflictError, 
-  UnauthorizedError, 
-  ForbiddenError, 
-  NotFoundError, 
+import {
+  ConflictError,
+  UnauthorizedError,
+  ForbiddenError,
+  NotFoundError,
   ValidationError,
   TooManyRequestsError
 } from "../utils/errors";
@@ -115,15 +116,18 @@ export class AuthService {
     }
 
     await AccountLockoutService.resetFailures(user.id);
-    
-    const accessToken = await JWTTokenService.generateAccessToken({ 
-      userId: user.id, 
-      email: user.email 
+
+    const sessionId = crypto.randomUUID();
+
+    const accessToken = await JWTTokenService.generateAccessToken({
+      userId: user.id,
+      email: user.email
     });
-    
-    const refreshToken = await JWTTokenService.generateRefreshToken({ 
-      userId: user.id, 
-      email: user.email 
+
+    const refreshToken = await JWTTokenService.generateRefreshToken({
+      userId: user.id,
+      email: user.email,
+      sessionId
     }, rememberMe);
 
     const expiresAt = new Date(Date.now() + (rememberMe ? 30 : 7) * 24 * 60 * 60 * 1000);
@@ -131,7 +135,8 @@ export class AuthService {
       user.id,
       refreshToken,
       metadata.userAgent,
-      expiresAt
+      expiresAt,
+      sessionId
     );
 
     await db.update(users)
