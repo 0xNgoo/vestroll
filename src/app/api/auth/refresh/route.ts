@@ -3,10 +3,10 @@ import { cookies } from "next/headers";
 import { TokenRefreshService } from "@/api/services/token-refresh.service";
 import { ApiResponse } from "@/api/utils/api-response";
 import { AuthUtils } from "@/api/utils/auth";
-import { AppError, ValidationError } from "@/api/utils/errors";
+import { AppError } from "@/api/utils/errors";
 import { refreshSchema } from "@/api/validations/auth-refresh.schema";
 import {
-    InvalidTokenFormatError,
+    InvalidTokenFormatError, // Validating presense doesn't use this but keeps the file clean?
     InvalidTokenSignatureError,
     ExpiredTokenError,
     TokenSessionMismatchError,
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
                 if (validation.success) {
                     refreshToken = validation.data.refreshToken;
                 }
-            } catch (e) {
+            } catch {
                 // Body reading failed or JSON invalid, ignore
             }
         }
