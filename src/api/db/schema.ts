@@ -11,17 +11,19 @@ export const users = pgTable("users", {
   email: varchar("email", { length: 255 }).notNull().unique(),
   passwordHash: varchar("password_hash", { length: 255 }),
   status: userStatusEnum("status").default("pending_verification").notNull(),
+  // Two-factor authentication fields
   twoFactorEnabled: boolean("two_factor_enabled").default(false).notNull(),
   twoFactorSecret: text("two_factor_secret"),
   twoFactorEnabledAt: timestamp("two_factor_enabled_at"),
   // Account lockout fields
   failedTwoFactorAttempts: integer("failed_two_factor_attempts").default(0).notNull(),
   twoFactorLockoutUntil: timestamp("two_factor_lockout_until"),
-  lastLoginAt: timestamp("last_login_at"),
   failedLoginAttempts: integer("failed_login_attempts").default(0).notNull(),
   lockedUntil: timestamp("locked_until"),
+  // OAuth fields
   oauthProvider: oauthProviderEnum("oauth_provider"),
   oauthId: varchar("oauth_id", { length: 255 }),
+  lastLoginAt: timestamp("last_login_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
