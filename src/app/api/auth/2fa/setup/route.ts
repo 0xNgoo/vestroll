@@ -6,10 +6,32 @@ import { TwoFactorService } from "@/api/services/two-factor.service";
 import { EmailService } from "@/api/services/email.service";
 
 /**
- * POST /api/auth/2fa/setup
- * Initialize 2FA setup (authenticated)
- *
- * Returns: { secret, qrCodeUrl, backupCodes: string[] }
+ * @swagger
+ * /auth/2fa/setup:
+ *   post:
+ *     summary: Initialize 2FA setup
+ *     description: Generate security secret, QR code URL, and backup codes for the authenticated user
+ *     tags: [2FA]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: 2FA setup initialized successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 secret:
+ *                   type: string
+ *                 qrCodeUrl:
+ *                   type: string
+ *                 backupCodes:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *       401:
+ *         description: Unauthorized
  */
 export async function POST(req: NextRequest) {
   try {
@@ -27,7 +49,7 @@ export async function POST(req: NextRequest) {
         backupCodes: result.backupCodes,
       },
       "2FA setup initialized. Please verify with your authenticator app.",
-      200
+      200,
     );
   } catch (error) {
     // Handle errors

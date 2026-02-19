@@ -58,11 +58,11 @@ export default function ContractForm() {
   };
 
   return (
-    <div className="w-full mx-auto bg-white">
+    <div className="w-full mx-auto bg-white dark:bg-gray-900">
       {/* Contract Dates Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div>
-          <label className="block text-sm text-gray-700 mb-2">
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
             End date (optional)
           </label>
           <div className="relative">
@@ -70,19 +70,21 @@ export default function ContractForm() {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-700"
             />
             <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
           </div>
         </div>
         <div>
-          <label className="block text-sm text-gray-700 mb-2">Start date</label>
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
+            Start date
+          </label>
           <div className="relative">
             <input
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-700"
             />
             <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
           </div>
@@ -92,7 +94,7 @@ export default function ContractForm() {
       {/* Termination Notice Period */}
       <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm text-gray-700 mb-2">
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
             Termination notice period (days)
           </label>
           <input
@@ -100,9 +102,9 @@ export default function ContractForm() {
             placeholder="e.g., 30"
             value={terminationPeriod}
             onChange={(e) => setTerminationPeriod(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-700"
           />
-          <p className="text-sm text-gray-500 mt-3">
+          <p className="text-sm text-gray-500 mt-3 dark:text-gray-400">
             Either party may terminate this contract by the specified notice,
             after which the contract will end.
           </p>
@@ -111,20 +113,22 @@ export default function ContractForm() {
 
       {/* Payment Details */}
       <div className="flex items-center mb-6">
-        <h2 className="text-lg font-semibold text-gray-900 mr-4 whitespace-nowrap">
+        <h2 className="text-lg font-semibold text-gray-900 mr-4 whitespace-nowrap dark:text-white">
           Payment details
         </h2>
-        <hr className="flex-grow border-t border-gray-200" />
+        <hr className="flex-grow border-t border-gray-200 dark:border-gray-700" />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div>
-          <label className="block text-sm text-gray-700 mb-2">Network</label>
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
+            Network
+          </label>
           <div className="relative">
             <Select
               value={network}
               onChange={(e) => setNetwork(e.target.value)}
-              className="w-full px-4 py-3 pl-12 bg-gray-50 rounded-lg text-gray-900 border-none appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 pl-12 bg-gray-50 rounded-lg text-gray-900 border-none appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
             >
               {networks.map((net) => (
                 <option key={net.name} value={net.name}>
@@ -151,24 +155,28 @@ export default function ContractForm() {
           </div>
         </div>
         <div>
-          <label className="block text-sm text-gray-700 mb-2">
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
             Asset
-            <span className="float-right text-gray-900">
+            <span className="float-right text-gray-900 dark:text-gray-100">
               ={Number(amount) - gasfee}
             </span>
           </label>
           <div className="relative">
-            <div className="flex items-center w-full px-4 py-3 bg-gray-50 border-0 rounded-lg">
+            <div className="flex items-center w-full px-4 py-3 bg-gray-50 border-0 rounded-lg dark:bg-gray-800">
               <div className="w-8 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
                 {getAssetIcon()}
               </div>
               <select
                 value={asset}
                 onChange={(e) => setAsset(e.target.value)}
-                className="bg-transparent border-0 w-30 focus:outline-none text-gray-900 cursor-pointer appearance-none pr-2"
+                className="bg-transparent border-0 w-30 focus:outline-none text-gray-900 cursor-pointer appearance-none pr-2 dark:text-white"
               >
                 {assets.map((a) => (
-                  <option key={a.name} value={a.name}>
+                  <option
+                    key={a.name}
+                    value={a.name}
+                    className="dark:bg-gray-800"
+                  >
                     {a.name}
                   </option>
                 ))}
@@ -190,7 +198,7 @@ export default function ContractForm() {
                 type="text"
                 value={`$ ${amount}`}
                 onChange={(e) => setAmount(e.target.value.replace("$ ", ""))}
-                className="text-right bg-transparent border-0 focus:outline-none text-gray-900 w-28"
+                className="text-right bg-transparent border-0 focus:outline-none text-gray-900 w-28 dark:text-white"
               />
             </div>
           </div>
@@ -198,20 +206,20 @@ export default function ContractForm() {
       </div>
 
       {/* Invoice Details */}
-      <h2 className="text-lg font-semibold text-gray-900 mb-6">
+      <h2 className="text-lg font-semibold text-gray-900 mb-6 dark:text-white">
         Invoice details
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label className="block text-sm text-gray-700 mb-2">
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
             Invoice frequency
           </label>
           <div className="relative">
             <select
               value={invoiceFrequency}
               onChange={(e) => setInvoiceFrequency(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
             >
               <option value="">--</option>
               <option value="weekly">Weekly</option>
@@ -236,14 +244,14 @@ export default function ContractForm() {
           </div>
         </div>
         <div>
-          <label className="block text-sm text-gray-700 mb-2">
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
             Issue invoice on
           </label>
           <div className="relative">
             <select
               value={issueInvoiceOn}
               onChange={(e) => setIssueInvoiceOn(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
             >
               <option value="">--</option>
               <option value="1">1st of the month</option>
@@ -270,12 +278,14 @@ export default function ContractForm() {
       </div>
 
       <div className="mb-8">
-        <label className="block text-sm text-gray-700 mb-2">Payment due</label>
+        <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
+          Payment due
+        </label>
         <div className="relative">
           <select
             value={paymentDue}
             onChange={(e) => setPaymentDue(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
           >
             <option value="">--</option>
             <option value="immediately">Immediately</option>
@@ -302,7 +312,7 @@ export default function ContractForm() {
       </div>
 
       {/* First Invoice Section */}
-      <h2 className="text-lg font-semibold text-gray-900 mb-6">
+      <h2 className="text-lg font-semibold text-gray-900 mb-6 dark:text-white">
         First Invoice
       </h2>
 
@@ -319,14 +329,16 @@ export default function ContractForm() {
             />
             <span
               className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors
-                                ${firstInvoiceType === "full" ? "bg-purple-600 border-purple-600" : "bg-white border-gray-300"}
+                                ${firstInvoiceType === "full" ? "bg-purple-600 border-purple-600" : "bg-white border-gray-300 dark:bg-gray-800 dark:border-gray-600"}
                             `}
             >
               {firstInvoiceType === "full" && (
                 <span className="w-2.5 h-2.5 bg-white rounded-full" />
               )}
             </span>
-            <span className="ml-2 text-gray-900">Full amount</span>
+            <span className="ml-2 text-gray-900 dark:text-gray-200">
+              Full amount
+            </span>
           </label>
           <label className="flex items-center cursor-pointer">
             <input
@@ -339,59 +351,67 @@ export default function ContractForm() {
             />
             <span
               className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors
-                                ${firstInvoiceType === "custom" ? "bg-purple-600 border-purple-600" : "bg-white border-gray-300"}
+                                ${firstInvoiceType === "custom" ? "bg-purple-600 border-purple-600" : "bg-white border-gray-300 dark:bg-gray-800 dark:border-gray-600"}
                             `}
             >
               {firstInvoiceType === "custom" && (
                 <span className="w-2.5 h-2.5 bg-white rounded-full" />
               )}
             </span>
-            <span className="ml-2 text-gray-900">Custom amount</span>
+            <span className="ml-2 text-gray-900 dark:text-gray-200">
+              Custom amount
+            </span>
           </label>
         </div>
-        <p className="text-sm text-gray-500 mb-6">
+        <p className="text-sm text-gray-500 mb-6 dark:text-gray-400">
           You would receive the full monthly amount for your first payment.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div>
-          <label className="block text-sm text-gray-700 mb-2">Date</label>
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
+            Date
+          </label>
           <div className="relative">
             <input
               type="date"
               value={firstInvoiceDate}
               onChange={(e) => setFirstInvoiceDate(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
             />
             <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
           </div>
         </div>
         <div>
-          <label className="block text-sm text-gray-700 mb-2">Amount</label>
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
+            Amount
+          </label>
           <input
             type="number"
             placeholder="0.00"
             value={firstInvoiceAmount}
             onChange={(e) => setFirstInvoiceAmount(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
           />
         </div>
       </div>
 
       {/* Add Inclusive Tax Section */}
-      <h2 className="text-lg font-semibold text-gray-900 mb-6">
+      <h2 className="text-lg font-semibold text-gray-900 mb-6 dark:text-white">
         Add inclusive tax (optional)
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label className="block text-sm text-gray-700 mb-2">Tax type</label>
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
+            Tax type
+          </label>
           <div className="relative">
             <select
               value={taxType}
               onChange={(e) => setTaxType(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
             >
               <option value="">e.g VAT, GST, HST, PST</option>
               <option value="VAT">VAT - Value Added Tax</option>
@@ -416,7 +436,7 @@ export default function ContractForm() {
           </div>
         </div>
         <div>
-          <label className="block text-sm text-gray-700 mb-2">
+          <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
             ID / account number
           </label>
           <div className="relative">
@@ -425,19 +445,21 @@ export default function ContractForm() {
               placeholder="Enter tax ID or account number"
               value={taxId}
               onChange={(e) => setTaxId(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
             />
           </div>
         </div>
       </div>
 
       <div>
-        <label className="block text-sm text-gray-700 mb-2">Tax rate</label>
+        <label className="block text-sm text-gray-700 mb-2 dark:text-gray-300">
+          Tax rate
+        </label>
         <div className="relative">
           <select
             value={taxRate}
             onChange={(e) => setTaxRate(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
           >
             <option value="">--</option>
             <option value="5">5%</option>

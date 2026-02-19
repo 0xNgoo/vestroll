@@ -34,7 +34,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
   };
 
   return (
-    <div className="hidden bg-gray-100 lg:block">
+    <div className="hidden bg-gray-100 lg:block dark:bg-gray-800">
       <div className="flex items-center px-4 py-3 text-sm font-medium text-gray-400">
         {showCheckbox && (
           <div className="w-6 h-4 mr-4">
@@ -58,7 +58,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
             <div
               key={column.key}
               className={
-                getAlignmentClass(column.align) + " !text-text-subtext  "
+                getAlignmentClass(column.align) + " text-text-subtext!  "
               }
             >
               {column.header}

@@ -8,6 +8,44 @@ import { ApiResponse } from "@/api/utils/api-response";
 import { AppError } from "@/api/utils/errors";
 import { ZodError } from "zod";
 
+/**
+ * @swagger
+ * /auth/apple:
+ *   post:
+ *     summary: Apple OAuth login
+ *     description: Authenticate or register user using Apple ID
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - idToken
+ *             properties:
+ *               idToken:
+ *                 type: string
+ *               user:
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                     type: object
+ *                     properties:
+ *                       firstName:
+ *                         type: string
+ *                       lastName:
+ *                         type: string
+ *                   email:
+ *                     type: string
+ *     responses:
+ *       200:
+ *         description: Authentication successful
+ *       400:
+ *         description: Validation failed
+ *       500:
+ *         description: Internal server error
+ */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

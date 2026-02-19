@@ -5,6 +5,37 @@ import { ApiResponse } from "@/api/utils/api-response";
 import { AppError } from "@/api/utils/errors";
 import { ZodError } from "zod";
 
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: User registration
+ *     description: Register a new user with business email and name
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - firstName
+ *               - lastName
+ *               - businessEmail
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *               businessEmail:
+ *                 type: string
+ *                 format: email
+ *     responses:
+ *       201:
+ *         description: Registration successful, verification email sent
+ *       400:
+ *         description: Bad request - Validation failed
+ */
 export async function POST(req: NextRequest) {
   try {
     // 1. Parse and sanitize input

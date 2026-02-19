@@ -8,6 +8,32 @@ import { ApiResponse } from "@/api/utils/api-response";
 import { AppError } from "@/api/utils/errors";
 import { ZodError } from "zod";
 
+/**
+ * @swagger
+ * /auth/google:
+ *   post:
+ *     summary: Google OAuth login
+ *     description: Authenticate or register user using Google account
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - idToken
+ *             properties:
+ *               idToken:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Authentication successful
+ *       400:
+ *         description: Validation failed
+ *       500:
+ *         description: Internal server error
+ */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -19,8 +45,10 @@ export async function POST(req: NextRequest) {
     );
 
     console.log("[Google OAuth] Provisioning user:", googleUserInfo.email);
-    const user =
-      await OAuthUserProvisioningService.provisionUser(googleUserInfo);
+    const user = await OAuthUserProvisioningService.provisionUser(
+      googleUserInfo,
+      "google",
+    );
 
     const jwtPayload = {
       userId: user.id,

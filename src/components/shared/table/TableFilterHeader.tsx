@@ -33,10 +33,10 @@ const TableFilterHeader: React.FC<TableFilterHeaderProps> = ({
         <p className="font-semibold text-text-header">{selectedTab}</p>
       )}
       <div className="flex items-center w-full gap-1 md:max-w-85">
-        <div className="flex justify-between items-center w-full px-4 py-2 bg-white border rounded-lg border-border-primary h-9">
+        <div className="flex justify-between items-center w-full px-4 py-2 bg-white border rounded-lg border-border-primary h-9 dark:bg-gray-900 dark:border-gray-800">
           <input
             type="search"
-            className="w-full text-xs text-gray-400 outline-none"
+            className="w-full text-xs text-gray-400 outline-none bg-transparent"
             placeholder={searchPlaceholder}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -46,7 +46,7 @@ const TableFilterHeader: React.FC<TableFilterHeaderProps> = ({
         {showFilterButton && (
           <button
             onClick={showModal}
-            className="flex items-center justify-center bg-white border rounded-lg cursor-pointer w-9 h-9 border-primary-500"
+            className="flex items-center justify-center bg-white border rounded-lg cursor-pointer w-9 h-9 border-primary-500 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300"
           >
             <FilterIcon />
           </button>

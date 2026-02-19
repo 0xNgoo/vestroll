@@ -97,7 +97,8 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
     <>
       <div className="space-y-8">
         {/* Profile Image Section */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 bg-[#FFFFFF] p-4 rounded-lg">
+
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 bg-[#FFFFFF] p-4 rounded-lg dark:bg-gray-900">
           <div className="relative">
             <div className="w-16 h-16 rounded-full overflow-hidden bg-[#5E2A8C] flex items-center justify-center">
               {userProfile.avatar ? (
@@ -117,17 +118,17 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
           </div>
 
           <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-semibold text-gray-900 mb-1 truncate">
+            <h3 className="text-lg font-semibold text-gray-900 mb-1 truncate dark:text-white">
               {userProfile.name}
             </h3>
-            <p className="text-sm text-gray-500 mb-3 truncate">
+            <p className="text-sm text-gray-500 mb-3 truncate dark:text-gray-400">
               {userProfile.email}
             </p>
           </div>
 
           <button
             onClick={() => setIsImageModalOpen(true)}
-            className="flex flex-row items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-[#5E2A8C] border border-[#5E2A8C] rounded-lg hover:bg-[#5E2A8C] hover:text-white transition-colors w-full sm:w-auto justify-center"
+            className="flex flex-row items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-[#5E2A8C] border border-[#5E2A8C] rounded-lg hover:bg-[#5E2A8C] hover:text-white transition-colors w-full sm:w-auto justify-center dark:text-purple-300 dark:border-purple-300 dark:hover:bg-purple-900/50"
           >
             <span>
               <Image src={"/upload.png"} alt="upload" width={16} height={16} />
@@ -138,12 +139,14 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
         </div>
 
         {/* General Section */}
-        <div className="bg-[#FFFFFF] p-4 rounded-lg">
+        <div className="bg-[#FFFFFF] p-4 rounded-lg dark:bg-gray-900">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
-            <h2 className="text-lg font-medium text-gray-900">General</h2>
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+              General
+            </h2>
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="flex flex-row items-center gap-2 text-xs sm:text-sm text-[#5E2A8C] hover:underline border border-[#5E2A8C] rounded-lg px-3 py-2 w-full sm:w-auto justify-center"
+              className="flex flex-row items-center gap-2 text-xs sm:text-sm text-[#5E2A8C] hover:underline border border-[#5E2A8C] rounded-lg px-3 py-2 w-full sm:w-auto justify-center dark:text-purple-300 dark:border-purple-300 dark:hover:bg-purple-900/50"
             >
               <Image src={"/pen.png"} alt="edit" width={16} height={16} />
               {isEditing ? "Cancel" : "Edit"}
@@ -154,7 +157,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">
                     Name
                   </label>
                   <input
@@ -162,7 +165,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5E2A8C] focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5E2A8C] focus:border-transparent dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-purple-500"
                   />
                   {errors.name && (
                     <p className="mt-1 text-sm text-red-600">{errors.name}</p>
@@ -170,7 +173,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">
                     Account email
                   </label>
                   <input
@@ -178,7 +181,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5E2A8C] focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5E2A8C] focus:border-transparent dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-purple-500"
                   />
                   {errors.email && (
                     <p className="mt-1 text-sm text-red-600">{errors.email}</p>
@@ -197,14 +200,14 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                     });
                     setErrors({});
                   }}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="px-4 py-2 text-sm font-medium text-white bg-[#5E2A8C] rounded-lg hover:bg-[#4A1F6F] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 text-sm font-medium text-white bg-[#5E2A8C] rounded-lg hover:bg-[#4A1F6F] transition-colors disabled:opacity-50 disabled:cursor-not-allowed dark:bg-purple-600 dark:hover:bg-purple-700"
                 >
                   {isLoading ? "Saving..." : "Save Changes"}
                 </button>
@@ -212,23 +215,29 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
             </form>
           ) : (
             <div className="space-y-3">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 bg-[#F5F6F7] p-3 rounded-lg gap-2">
-                <span className="text-sm text-gray-600">Name</span>
-                <span className="text-sm font-medium text-gray-900 truncate">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 bg-[#F5F6F7] p-3 rounded-lg gap-2 dark:bg-gray-800">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Name
+                </span>
+                <span className="text-sm font-medium text-gray-900 truncate dark:text-white">
                   {userProfile.name}
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 bg-white p-3 rounded-lg gap-2">
-                <span className="text-sm text-gray-600">Account email</span>
-                <span className="text-sm font-medium text-gray-900 truncate">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 bg-white p-3 rounded-lg gap-2 dark:bg-gray-800">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Account email
+                </span>
+                <span className="text-sm font-medium text-gray-900 truncate dark:text-white">
                   {userProfile.email}
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 bg-[#F5F6F7] p-3 rounded-lg gap-2">
-                <span className="text-sm text-gray-600">Password</span>
-                <span className="text-sm font-medium text-gray-900">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 bg-[#F5F6F7] p-3 rounded-lg gap-2 dark:bg-gray-800">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Password
+                </span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
                   ••••••••••
                 </span>
               </div>

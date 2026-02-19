@@ -37,13 +37,15 @@ const TeamManagementDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b border-gray-200">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-800">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="text-sm text-gray-500 mb-1">Overview</p>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <p className="text-sm text-gray-500 mb-1 dark:text-gray-400">
+                Overview
+              </p>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Team management
               </h1>
             </div>

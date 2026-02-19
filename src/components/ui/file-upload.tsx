@@ -68,16 +68,16 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
   return (
     <div className={className}>
-      <label className="block text-sm font-medium text-[#17171C] mb-2">
+      <label className="block text-sm font-medium text-[#17171C] mb-2 dark:text-gray-300">
         {label}
       </label>
 
       {file ? (
         // File uploaded state - show file info with loading or completed state
-        <div className="border border-[#DCE0E5] rounded-[8px] px-4 py-4 bg-white">
+        <div className="border border-[#DCE0E5] rounded-[8px] px-4 py-4 bg-white dark:bg-gray-900 dark:border-gray-700">
           <div className="flex items-center gap-x-4">
             {/* File Icon */}
-            <div className="w-10 h-10 bg-[#E8E5FA] rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-[#E8E5FA] rounded-full flex items-center justify-center shrink-0 dark:bg-indigo-900/30">
               <svg
                 width="16"
                 height="16"
@@ -90,12 +90,14 @@ const FileUpload: React.FC<FileUploadProps> = ({
                   stroke="#5A42DE"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="dark:stroke-indigo-400"
                 />
                 <path
                   d="M14.6673 6.66634H12.0007C10.0007 6.66634 9.33398 5.99967 9.33398 3.99967V1.33301L14.6673 6.66634Z"
                   stroke="#5A42DE"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="dark:stroke-indigo-400"
                 />
               </svg>
             </div>
@@ -104,18 +106,18 @@ const FileUpload: React.FC<FileUploadProps> = ({
             <div className="w-full">
               <div className="flex flex-col gap-y-1.5 w-full justify-between">
                 <div className="flex flex-col gap-y-0.5">
-                  <p className="text-sm font-semibold leading-[108%] text-[#17171C] truncate">
+                  <p className="text-sm font-semibold leading-[108%] text-[#17171C] truncate dark:text-gray-200">
                     {file.name}
                   </p>
-                  <p className="text-xs leading-[100%] text-[#7F8C9F]">
+                  <p className="text-xs leading-[100%] text-[#7F8C9F] dark:text-gray-400">
                     {(file.size / 1024 / 1024).toFixed(0)} MB
                   </p>
                 </div>
                 {/* Progress Bar */}
                 {isUploading && (
-                  <div className="w-full bg-[#E8E5FA] rounded-full h-2">
+                  <div className="w-full bg-[#E8E5FA] rounded-full h-2 dark:bg-gray-800">
                     <div
-                      className="bg-[#5A42DE] h-2 rounded-full transition-all duration-300"
+                      className="bg-[#5A42DE] h-2 rounded-full transition-all duration-300 dark:bg-indigo-500"
                       style={{ width: `${uploadProgress}%` }}
                     />
                   </div>
@@ -127,7 +129,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
               <button
                 type="button"
                 onClick={removeFile}
-                className="w-8 h-8 bg-[#F5F6F7] cursor-pointer border border-[#DCE0E5] rounded-full flex items-center justify-center hover:bg-[#E8E5FA] transition-colors"
+                className="w-8 h-8 bg-[#F5F6F7] cursor-pointer border border-[#DCE0E5] rounded-full flex items-center justify-center hover:bg-[#E8E5FA] transition-colors dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
               >
                 {isUploading ? (
                   <svg
@@ -187,7 +189,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
               </button>
               {/* Progress Percentage */}
               <div className="flex items-center justify-between">
-                <span className="text-xs text-[#414F62]">
+                <span className="text-xs text-[#414F62] dark:text-gray-400">
                   {isUploading && `${uploadProgress}%`}
                 </span>
               </div>
@@ -200,11 +202,13 @@ const FileUpload: React.FC<FileUploadProps> = ({
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           className={`relative border border-[#DCE0E5] rounded-[8px] p-4 transition-colors ${
-            isDragOver ? "border-[#5E2A8C] bg-purple-30" : "bg-white"
+            isDragOver
+              ? "border-[#5E2A8C] bg-purple-30 dark:bg-purple-900/20"
+              : "bg-white dark:bg-gray-900 dark:border-gray-700"
           }`}
         >
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-[#E8E5FA] rounded-full flex items-center justify-center mr-3">
+            <div className="w-10 h-10 bg-[#E8E5FA] rounded-full flex items-center justify-center mr-3 dark:bg-indigo-900/30">
               <svg
                 width="16"
                 height="16"
@@ -217,33 +221,39 @@ const FileUpload: React.FC<FileUploadProps> = ({
                   stroke="#5A42DE"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="dark:stroke-indigo-400"
                 />
                 <path
                   d="M6 7.33301L7.33333 8.66634"
                   stroke="#5A42DE"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="dark:stroke-indigo-400"
                 />
                 <path
                   d="M14.6673 6.66634V9.99967C14.6673 13.333 13.334 14.6663 10.0007 14.6663H6.00065C2.66732 14.6663 1.33398 13.333 1.33398 9.99967V5.99967C1.33398 2.66634 2.66732 1.33301 6.00065 1.33301H9.33398"
                   stroke="#5A42DE"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="dark:stroke-indigo-400"
                 />
                 <path
                   d="M14.6673 6.66634H12.0007C10.0007 6.66634 9.33398 5.99967 9.33398 3.99967V1.33301L14.6673 6.66634Z"
                   stroke="#5A42DE"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="dark:stroke-indigo-400"
                 />
               </svg>
             </div>
             <div className="flex-1">
-              <p className="text-sm text-[#414F62] font-medium">
-                <span className="text-[#5A42DE]">Click to upload</span> or drag
-                and drop
+              <p className="text-sm text-[#414F62] font-medium dark:text-gray-300">
+                <span className="text-[#5A42DE] dark:text-indigo-400">
+                  Click to upload
+                </span>{" "}
+                or drag and drop
               </p>
-              <p className="text-xs text-[#414F62] font-medium mt-1">
+              <p className="text-xs text-[#414F62] font-medium mt-1 dark:text-gray-400">
                 SVG, PNG, JPG or GIF (max. {maxSize}MB)
               </p>
             </div>

@@ -75,7 +75,7 @@ const Table = <T extends Record<string, any>>({
   const endIndex = startIndex + itemsPerPage;
   const paginatedData = useMemo(
     () => data.slice(startIndex, endIndex),
-    [data, startIndex, endIndex]
+    [data, startIndex, endIndex],
   );
 
   const allSelected =
@@ -98,7 +98,7 @@ const Table = <T extends Record<string, any>>({
       const currentPageIds = paginatedData.map((item) =>
         getItemId
           ? getItemId(item)
-          : item.id || item._id || String(Math.random())
+          : item.id || item._id || String(Math.random()),
       );
 
       if (checked) {
@@ -139,7 +139,7 @@ const Table = <T extends Record<string, any>>({
           </div>
         )}
       </div>
-      <div className="md:overflow-x-auto bg-white p-4 rounded-lg custom-scrollbar">
+      <div className="md:overflow-x-auto bg-white p-4 rounded-lg custom-scrollbar dark:bg-gray-900">
         <TableHeader
           columns={columns}
           showCheckbox={showCheckbox}

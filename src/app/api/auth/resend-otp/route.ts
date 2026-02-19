@@ -5,6 +5,33 @@ import { ApiResponse } from "@/api/utils/api-response";
 import { AppError, TooManyRequestsError } from "@/api/utils/errors";
 import { ZodError } from "zod";
 
+/**
+ * @swagger
+ * /auth/resend-otp:
+ *   post:
+ *     summary: Resend verification OTP
+ *     description: Resend a new one-time password for email verification
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *     responses:
+ *       200:
+ *         description: OTP resent successfully
+ *       400:
+ *         description: Invalid email or validation error
+ *       429:
+ *         description: Too many requests - Rate limit exceeded
+ */
 export async function POST(req: NextRequest) {
   try {
     // 1. Parse and validate input
@@ -32,7 +59,7 @@ export async function POST(req: NextRequest) {
       // Include retry-after information in response
       const retryAfter = error.retryAfter || 300;
       console.warn(
-        `[Rate Limit] OTP resend rate limit exceeded. Retry after: ${retryAfter}s`
+        `[Rate Limit] OTP resend rate limit exceeded. Retry after: ${retryAfter}s`,
       );
 
       return new Response(
@@ -47,7 +74,7 @@ export async function POST(req: NextRequest) {
             "Content-Type": "application/json",
             "Retry-After": retryAfter.toString(),
           },
-        }
+        },
       );
     }
 

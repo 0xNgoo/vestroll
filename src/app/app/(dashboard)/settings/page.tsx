@@ -18,12 +18,14 @@ interface StatProps {
 function Stat({ Icon, label, value }: StatProps) {
   return (
     <div className="flex items-center gap-3">
-      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f5f3ff]">
-        <Icon className="h-5 w-5 text-[var(--violet-base)]" />
+      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f5f3ff] dark:bg-gray-800">
+        <Icon className="h-5 w-5 text-(--violet-base)" />
       </div>
       <div className="leading-tight">
-        <div className="text-xs sm:text-sm text-[#6b7280]">{label}</div>
-        <div className="text-base sm:text-lg font-semibold text-[#111827]">
+        <div className="text-xs sm:text-sm text-[#6b7280] dark:text-gray-400">
+          {label}
+        </div>
+        <div className="text-base sm:text-lg font-semibold text-[#111827] dark:text-gray-100">
           {value}
         </div>
       </div>
@@ -39,9 +41,11 @@ interface SectionCardProps {
 
 function SectionCard({ title, action, children }: SectionCardProps) {
   return (
-    <section className="rounded-xl border border-[#e5e7eb] bg-white shadow-sm">
-      <div className="group flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-4 border-b border-[#eef2f7]">
-        <h2 className="text-lg font-semibold text-[#1f2937]">{title}</h2>
+    <section className="rounded-xl border border-[#e5e7eb] bg-white shadow-sm dark:bg-gray-900 dark:border-gray-800">
+      <div className="group flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-4 border-b border-[#eef2f7] dark:border-gray-800">
+        <h2 className="text-lg font-semibold text-[#1f2937] dark:text-gray-200">
+          {title}
+        </h2>
         {action}
       </div>
       <div className="p-4 sm:p-6">{children}</div>
@@ -57,10 +61,10 @@ interface FieldRowProps {
 
 function FieldRow({ label, value, right }: FieldRowProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-6 px-3 sm:px-4 py-3 rounded-lg bg-[#f8fafc]">
-      <div className="text-sm text-[#6b7280]">{label}</div>
+    <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-6 px-3 sm:px-4 py-3 rounded-lg bg-[#f8fafc] dark:bg-gray-800/50">
+      <div className="text-sm text-[#6b7280] dark:text-gray-400">{label}</div>
       <div className="sm:col-span-2 flex items-center justify-end gap-3">
-        <div className="text-sm sm:text-base text-[#111827] text-right">
+        <div className="text-sm sm:text-base text-[#111827] text-right dark:text-gray-200">
           {value ?? <span className="text-[#9ca3af]">--</span>}
         </div>
         {right}
@@ -72,7 +76,7 @@ function FieldRow({ label, value, right }: FieldRowProps) {
 export default function Page() {
   return (
     <>
-      <div className="rounded-xl border border-[#e5e7eb] bg-white p-4 sm:p-6 shadow-sm">
+      <div className="rounded-xl border border-[#e5e7eb] bg-white p-4 sm:p-6 shadow-sm dark:bg-gray-900 dark:border-gray-800">
         <div className="flex flex-col items-center text-center gap-4 md:block sm:items-center sm:justify-start sm:text-left">
           <div className="md:flex gap-8 items-center">
             <Image
@@ -84,19 +88,19 @@ export default function Page() {
             />
 
             <div>
-              <h2 className="text-3xl sm:text-3xl font-semibold text-[#111827]">
+              <h2 className="text-3xl sm:text-3xl font-semibold text-[#111827] dark:text-white">
                 Touchpoint 360
               </h2>
 
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-10 pt-4">
                 <Stat Icon={UsersIcon} label="Active members" value="20" />
                 <div
-                  className="hidden sm:block h-10 w-px bg-[#e5e7eb]"
+                  className="hidden sm:block h-10 w-px bg-[#e5e7eb] dark:bg-gray-700"
                   aria-hidden="true"
                 />
                 <Stat Icon={GlobeAltIcon} label="Countries" value="04" />
                 <div
-                  className="hidden sm:block h-10 w-px bg-[#e5e7eb]"
+                  className="hidden sm:block h-10 w-px bg-[#e5e7eb] dark:bg-gray-700"
                   aria-hidden="true"
                 />
                 <Stat
@@ -115,7 +119,7 @@ export default function Page() {
           title="Company information"
           action={
             <button
-              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-[var(--violet-base)] border-[var(--violet-base)] hover:bg-[var(--violet-hover)] hover:text-white active:bg-[var(--violet-active)] transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-(--violet-base) border-(--violet-base) hover:bg-(--violet-hover) hover:text-white active:bg-(--violet-active) transition-colors"
               type="button"
               aria-label="Edit company information"
             >
@@ -125,7 +129,7 @@ export default function Page() {
                 height={16}
                 alt=""
                 aria-hidden
-                className="transition group-hover:invert group-hover:brightness-0"
+                className="transition group-hover:invert group-hover:brightness-0 dark:invert"
               />
               Edit
             </button>
@@ -165,7 +169,7 @@ export default function Page() {
               value={
                 <Link
                   href="https://www.touchpoint360.com/"
-                  className="text-[var(--violet-base)] hover:underline"
+                  className="text-(--violet-base) hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -181,18 +185,20 @@ export default function Page() {
         <SectionCard title="Addresses">
           <div className="space-y-4">
             <div>
-              <div className="text-sm text-[#6b7280] mb-2">Billing address</div>
-              <div className="flex items-center gap-3 rounded-xl border border-gray-300 px-4 py-4">
+              <div className="text-sm text-[#6b7280] mb-2 dark:text-gray-400">
+                Billing address
+              </div>
+              <div className="flex items-center gap-3 rounded-xl border border-gray-300 px-4 py-4 dark:border-gray-700 dark:bg-gray-800/50">
                 <Image
                   src="/warning.svg"
                   width={20}
                   height={20}
                   alt="Warning"
                 />
-                <div className="text-sm">
+                <div className="text-sm dark:text-gray-300">
                   Please{" "}
                   <Link
-                    className="underline decoration-[var(--violet-base)] text-[var(--violet-base)] hover:no-underline"
+                    className="underline decoration-(--violet-base) text-(--violet-base) hover:no-underline"
                     href="#"
                   >
                     add
@@ -202,20 +208,20 @@ export default function Page() {
               </div>
             </div>
             <div>
-              <div className="text-sm text-[#6b7280] mb-2">
+              <div className="text-sm text-[#6b7280] mb-2 dark:text-gray-400">
                 Registered address
               </div>
-              <div className="flex items-center gap-3 rounded-xl border border-gray-300 px-4 py-4">
+              <div className="flex items-center gap-3 rounded-xl border border-gray-300 px-4 py-4 dark:border-gray-700 dark:bg-gray-800/50">
                 <Image
                   src="/warning.svg"
                   width={20}
                   height={20}
                   alt="Warning"
                 />
-                <div className="text-sm">
+                <div className="text-sm dark:text-gray-300">
                   Please{" "}
                   <Link
-                    className="underline decoration-[var(--violet-base)] text-[var(--violet-base)] hover:no-underline"
+                    className="underline decoration-(--violet-base) text-(--violet-base) hover:no-underline"
                     href="settings/registered-address"
                   >
                     add

@@ -37,7 +37,7 @@ const StatusBadge = ({ status }: { status: Transaction["status"] }) => {
     <span
       className={cn(
         "px-3 py-1 rounded-full text-xs font-medium",
-        config.className
+        config.className,
       )}
     >
       {config.text}
@@ -118,8 +118,10 @@ export default function TransactionsPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Transactions</h1>
-          <p className="text-gray-500">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Transactions
+          </h1>
+          <p className="text-gray-500 dark:text-gray-400">
             View and manage your transaction history
           </p>
         </div>
@@ -130,17 +132,19 @@ export default function TransactionsPage() {
       </div>
 
       {/* Balance Section */}
-      <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+      <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm dark:bg-gray-900 dark:border-gray-800">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center">
+            <div className="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center dark:bg-blue-900/20">
               <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
                 <Image src="/usdc.svg" alt="USDC" width={24} height={24} />
               </div>
             </div>
             <div>
-              <p className="text-gray-500 text-sm">Available balance</p>
-              <h2 className="text-3xl font-bold text-gray-900">
+              <p className="text-gray-500 text-sm dark:text-gray-400">
+                Available balance
+              </p>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                 1,200.00 USDC
               </h2>
             </div>
@@ -164,26 +168,28 @@ export default function TransactionsPage() {
         {statsData.map((stat, index) => (
           <div
             key={index}
-            className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6"
+            className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 dark:bg-gray-900 dark:border-gray-800"
           >
-            <h4 className="text-sm font-medium text-gray-500 mb-2">
+            <h4 className="text-sm font-medium text-gray-500 mb-2 dark:text-gray-400">
               {stat.title}
             </h4>
-            <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+            <div className="text-3xl font-bold text-gray-900 dark:text-white">
+              {stat.value}
+            </div>
           </div>
         ))}
       </section>
 
       {/* Transactions Table */}
-      <section className="bg-white rounded-xl border border-gray-200 shadow-sm">
+      <section className="bg-white rounded-xl border border-gray-200 shadow-sm dark:bg-gray-900 dark:border-gray-800">
         <div className="p-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Transaction Table
             </h3>
             <div className="flex gap-3">
               <div className="relative">
-                <select className="appearance-none bg-white border border-gray-300 rounded-lg py-2 pl-3 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <select className="appearance-none bg-white border border-gray-300 rounded-lg py-2 pl-3 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300">
                   <option>All Transactions</option>
                   <option>Credits</option>
                   <option>Debits</option>
@@ -202,7 +208,7 @@ export default function TransactionsPage() {
                 <input
                   type="text"
                   placeholder="Search transactions..."
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:placeholder-gray-500"
                 />
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg
@@ -226,23 +232,23 @@ export default function TransactionsPage() {
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <tr className="border-b border-gray-200 dark:border-gray-800">
+                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
                     Date
                   </th>
-                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
                     Description
                   </th>
-                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
                     Amount
                   </th>
-                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
                     Type
                   </th>
-                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
                     Status
                   </th>
-                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider text-right">
+                  <th className="pb-4 text-xs font-medium text-gray-500 uppercase tracking-wider text-right dark:text-gray-400">
                     More
                   </th>
                 </tr>
@@ -251,12 +257,12 @@ export default function TransactionsPage() {
                 {mockTransactions.map((transaction) => (
                   <tr
                     key={transaction.id}
-                    className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50"
+                    className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/50"
                   >
-                    <td className="py-4 text-sm text-gray-900">
+                    <td className="py-4 text-sm text-gray-900 dark:text-gray-300">
                       {transaction.date}
                     </td>
-                    <td className="py-4 text-sm text-gray-900 font-medium">
+                    <td className="py-4 text-sm text-gray-900 font-medium dark:text-gray-100">
                       {transaction.description}
                     </td>
                     <td
@@ -265,7 +271,7 @@ export default function TransactionsPage() {
                       {transaction.amount}
                     </td>
                     <td className="py-4">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 capitalize">
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 capitalize dark:bg-gray-800 dark:text-gray-300">
                         {transaction.type}
                       </span>
                     </td>
@@ -292,14 +298,16 @@ export default function TransactionsPage() {
             {mockTransactions.map((transaction) => (
               <div
                 key={transaction.id}
-                className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50"
+                className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/50"
               >
                 <div className="flex justify-between items-start">
                   <div>
-                    <h4 className="font-medium text-gray-900">
+                    <h4 className="font-medium text-gray-900 dark:text-gray-100">
                       {transaction.description}
                     </h4>
-                    <p className="text-sm text-gray-500">{transaction.date}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {transaction.date}
+                    </p>
                   </div>
                   <div
                     className={`font-medium text-sm ${transaction.type === "credit" ? "text-green-600" : "text-red-600"}`}
@@ -309,7 +317,7 @@ export default function TransactionsPage() {
                 </div>
                 <div className="flex justify-between mt-3 items-center">
                   <div className="flex gap-2">
-                    <span className="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded capitalize">
+                    <span className="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded capitalize dark:bg-gray-800 dark:text-gray-300">
                       {transaction.type}
                     </span>
                     <StatusBadge status={transaction.status} />

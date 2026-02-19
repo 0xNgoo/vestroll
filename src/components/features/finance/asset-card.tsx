@@ -8,7 +8,7 @@ interface AssetCardProps {
 
 export function AssetCard({ asset }: AssetCardProps) {
   return (
-    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow dark:bg-gray-900 dark:border-gray-800">
       <div className="flex items-start justify-between">
         <div className="flex items-start gap-3 flex-1">
           <Image
@@ -19,20 +19,22 @@ export function AssetCard({ asset }: AssetCardProps) {
             className="object-contain"
           />
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-[#0F172A] text-sm mb-0.5">
+            <h3 className="font-semibold text-[#0F172A] text-sm mb-0.5 dark:text-white">
               {asset.name}
             </h3>
-            <p className="text-xs text-[#64748B]">
+            <p className="text-xs text-[#64748B] dark:text-gray-400">
               {asset.price}{" "}
               <span className="text-[#EF4444]">{asset.change}</span>
             </p>
           </div>
         </div>
         <div className="text-right ml-2">
-          <p className="font-semibold text-[#0F172A] text-sm mb-0.5">
+          <p className="font-semibold text-[#0F172A] text-sm mb-0.5 dark:text-white">
             {asset.balance}
           </p>
-          <p className="text-xs text-[#94A3B8]">{asset.amount}</p>
+          <p className="text-xs text-[#94A3B8] dark:text-gray-500">
+            {asset.amount}
+          </p>
         </div>
       </div>
     </div>

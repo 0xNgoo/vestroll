@@ -5,6 +5,37 @@ import { EmailVerificationService } from "@/api/services/email-verification.serv
 import { ApiResponse } from "@/api/utils/api-response";
 import { AppError } from "@/api/utils/errors";
 
+/**
+ * @swagger
+ * /auth/verify-email:
+ *   post:
+ *     summary: Verify email with OTP
+ *     description: Verify user's email address using the one-time password sent to them
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - otp
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               otp:
+ *                 type: string
+ *                 description: 6-digit verification code
+ *     responses:
+ *       200:
+ *         description: Email verified successfully
+ *       400:
+ *         description: Invalid OTP or validation error
+ *       404:
+ *         description: User not found or no pending verification
+ */
 export async function POST(req: NextRequest) {
   try {
     let body;
@@ -22,14 +53,10 @@ export async function POST(req: NextRequest) {
 
     const result = await EmailVerificationService.verifyEmail(
       validatedData.email,
-      validatedData.otp
+      validatedData.otp,
     );
 
-    return ApiResponse.success(
-      { user: result.user },
-      result.message,
-      200
-    );
+    return ApiResponse.success({ user: result.user }, result.message, 200);
   } catch (error) {
     if (error instanceof ZodError) {
       const fieldErrors = error.issues.reduce<Record<string, string>>(
@@ -38,7 +65,7 @@ export async function POST(req: NextRequest) {
           acc[field] = curr.message;
           return acc;
         },
-        {}
+        {},
       );
 
       console.error("[Validation Error] verify-email:", fieldErrors);

@@ -46,7 +46,7 @@ export default function LoginPage({
     <>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
       <div className="flex items-center justify-center w-full ">
-        <div className="max-w-[440px]  ">
+        <div className="w-full max-w-[640px]">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-8 lg:space-y-12 "
@@ -186,7 +186,7 @@ export default function LoginPage({
                       Login with
                     </span>
                     <svg
-                      className="flex-shrink-0 w-5 h-5 mr-1 sm:mr-2"
+                      className="shrink-0 w-5 h-5 mr-1 sm:mr-2"
                       viewBox="0 0 24 24"
                     >
                       <path
@@ -216,7 +216,7 @@ export default function LoginPage({
                       Login with
                     </span>
                     <svg
-                      className="flex-shrink-0 w-5 h-5 mr-1 sm:mr-2"
+                      className="shrink-0 w-5 h-5 mr-1 sm:mr-2"
                       viewBox="0 0 24 24"
                       fill="currentColor"
                     >

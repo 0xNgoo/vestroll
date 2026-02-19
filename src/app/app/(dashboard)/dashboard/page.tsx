@@ -15,11 +15,11 @@ export default function DashboardPage() {
   };
   return (
     <div>
-      <header className="px-6 sm:pt-6 pb-1 space-y-1 sm:space-y-2 bg-white sm:border-b sm:border-[#DCE0E5] sm:pb-5">
-        <h1 className="font-bold text-2xl sm:font-semibold sm:text-[1.75rem] text-text-header">
+      <header className="px-6 sm:pt-6 pb-1 space-y-1 sm:space-y-2 bg-white sm:border-b sm:border-[#DCE0E5] sm:pb-5 dark:bg-gray-900 dark:border-gray-800">
+        <h1 className="font-bold text-2xl sm:font-semibold sm:text-[1.75rem] text-text-header dark:text-gray-100">
           Welcome back <span className="text-[#9D62D0]">Oreoluwa</span>!
         </h1>
-        <p className="text-xs text-[#7F8C9F] font-medium leading-[120%] tracking-[0%]">
+        <p className="text-xs text-[#7F8C9F] font-medium leading-[120%] tracking-[0%] dark:text-gray-400">
           What will you like to do today?
         </p>
       </header>
@@ -42,6 +42,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-
-

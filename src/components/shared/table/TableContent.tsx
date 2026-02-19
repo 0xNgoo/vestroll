@@ -64,7 +64,7 @@ const TableContent = <T extends Record<string, any>>({
 
   if (data.length === 0) {
     return (
-      <div className="bg-white rounded-b-lg">
+      <div className="bg-white rounded-b-lg dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center py-16">
           <EmptyState
             title={
@@ -85,7 +85,7 @@ const TableContent = <T extends Record<string, any>>({
   }
 
   return (
-    <div className="bg-white rounded-b-lg">
+    <div className="bg-white rounded-b-lg dark:bg-gray-900">
       {/* Desktop table view */}
       <div className="hidden lg:block">
         {data.map((item, index) => {
@@ -95,9 +95,9 @@ const TableContent = <T extends Record<string, any>>({
           return (
             <div
               key={itemId}
-              className={`flex items-center px-4 py-4 text-sm hover:bg-gray-50 ${
+              className={`flex items-center px-4 py-4 text-sm hover:bg-gray-50 dark:hover:bg-gray-800/50 ${
                 index !== data.length - 1
-                  ? "border-b border-border-primary"
+                  ? "border-b border-border-primary dark:border-gray-800"
                   : ""
               } ${onRowClick ? "cursor-pointer" : ""}`}
               onClick={() => onRowClick?.(item)}
@@ -127,8 +127,8 @@ const TableContent = <T extends Record<string, any>>({
                   <div
                     key={column.key}
                     className={`${getAlignmentClass(
-                      column.align
-                    )} text-gray-900`}
+                      column.align,
+                    )} text-gray-900 dark:text-gray-100`}
                   >
                     {renderCell
                       ? renderCell(item, column)
@@ -150,8 +150,10 @@ const TableContent = <T extends Record<string, any>>({
             <div
               key={itemId}
               className={`p-2 px-2 ${
-                index !== data.length - 1 ? "border-b border-gray-150" : ""
-              } ${onRowClick ? "cursor-pointer" : ""} hover:bg-gray-50`}
+                index !== data.length - 1
+                  ? "border-b border-gray-150 dark:border-gray-800"
+                  : ""
+              } ${onRowClick ? "cursor-pointer" : ""} hover:bg-gray-50 dark:hover:bg-gray-800/50`}
               onClick={() => onRowClick?.(item)}
             >
               {renderMobileCell(item)}

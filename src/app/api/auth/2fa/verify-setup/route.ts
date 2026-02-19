@@ -8,11 +8,33 @@ import { VerifySetupSchema } from "@/api/validations/two-factor.schema";
 import { ZodError } from "zod";
 
 /**
- * POST /api/auth/2fa/verify-setup
- * Complete 2FA setup (authenticated)
- *
- * Request body: { totpCode: string }
- * Returns: { message: "2FA enabled successfully", backupCodes: string[] }
+ * @swagger
+ * /auth/2fa/verify-setup:
+ *   post:
+ *     summary: Complete 2FA setup
+ *     description: Verify the provided TOTP code to finalize 2FA enablement
+ *     tags: [2FA]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - totpCode
+ *             properties:
+ *               totpCode:
+ *                 type: string
+ *                 description: 6-digit verification code from app
+ *     responses:
+ *       200:
+ *         description: 2FA enabled successfully
+ *       400:
+ *         description: Invalid TOTP code or validation error
+ *       401:
+ *         description: Unauthorized
  */
 export async function POST(req: NextRequest) {
   try {
@@ -24,7 +46,10 @@ export async function POST(req: NextRequest) {
     const validatedData = VerifySetupSchema.parse(body);
 
     // 3. Verify setup with TOTP code
-    const result = await TwoFactorService.verifySetup(userId, validatedData.totpCode);
+    const result = await TwoFactorService.verifySetup(
+      userId,
+      validatedData.totpCode,
+    );
 
     // 4. Send notification email
     await EmailService.sendTwoFactorEnabledEmail(email, user.firstName);
@@ -36,7 +61,7 @@ export async function POST(req: NextRequest) {
         backupCodes: result.backupCodes,
       },
       "Two-factor authentication has been enabled on your account.",
-      200
+      200,
     );
   } catch (error) {
     // Handle Zod validation errors

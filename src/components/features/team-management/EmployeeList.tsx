@@ -18,12 +18,12 @@ export const EmployeeList = ({ employees }: EmployeeListProps) => {
         <Link
           href={`/app/team-management/${employee.id}`}
           key={employee.id}
-          className="bg-white rounded-xl p-3.5 cursor-pointer"
+          className="bg-white rounded-xl p-3.5 cursor-pointer dark:bg-gray-900"
         >
           {/* Top section: Avatar + Name/Role */}
           <div className="flex items-center gap-4 mb-6">
             {/* Avatar */}
-            <div className="relative rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+            <div className="relative rounded-full overflow-hidden bg-gray-200 shrink-0 dark:bg-gray-700">
               <Image
                 src={employee.avatar || "/profileImage.png"}
                 alt={employee.name}
@@ -35,20 +35,20 @@ export const EmployeeList = ({ employees }: EmployeeListProps) => {
 
             {/* Name and Role */}
             <div className="flex flex-col">
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">
+              <h3 className="text-lg font-semibold text-gray-900 mb-1 dark:text-white">
                 {employee.name}
               </h3>
               <p className="text-xs text-gray-400">{employee.role}</p>
             </div>
           </div>
 
-          <hr className="mb-3 bg-border-primary" />
+          <hr className="mb-3 bg-border-primary dark:border-gray-800" />
 
           {/* Bottom section: Both Badges in a row */}
           <div className="flex items-center justify-between gap-3">
             <Badge
               variant="outline"
-              className="bg-fill-background text-gray-700 border-gray-300 font-normal rounded-3xl"
+              className="bg-fill-background text-gray-700 border-gray-300 font-normal rounded-3xl dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700"
             >
               <UserCircle className="w-4 h-4 mr-1.5" />
               {employee.type}
@@ -63,8 +63,8 @@ export const EmployeeList = ({ employees }: EmployeeListProps) => {
               className={`
                 ${
                   employee.status.toLowerCase() === "active"
-                    ? "bg-green-100 text-green-700 hover:bg-green-100 border-[#26902B]"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-100 border-gray-200"
+                    ? "bg-green-100 text-green-700 hover:bg-green-100 border-[#26902B] dark:bg-green-900/20 dark:text-green-400 dark:border-green-800"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-100 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700"
                 }
                 font-semibold rounded-3xl
               `}

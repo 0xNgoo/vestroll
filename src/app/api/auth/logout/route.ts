@@ -7,45 +7,69 @@ import { AppError } from "@/api/utils/errors";
 import { logoutSchema } from "@/api/validations/auth-logout.schema";
 import { Logger } from "@/api/services/logger.service";
 
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     summary: User logout
+ *     description: Clear security cookies and invalidate current session
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Logged out successfully
+ *       500:
+ *         description: Internal server error
+ */
 export async function POST(request: NextRequest) {
-    try {
-        const cookieStore = await cookies();
-        const cookieToken = cookieStore.get("refreshToken")?.value;
+  try {
+    const cookieStore = await cookies();
+    const cookieToken = cookieStore.get("refreshToken")?.value;
 
-        let refreshToken = cookieToken;
+    let refreshToken = cookieToken;
 
-        if (!refreshToken) {
-            try {
-                const body = await request.json();
-                const validation = logoutSchema.safeParse(body);
-                if (validation.success && validation.data.refreshToken) {
-                    refreshToken = validation.data.refreshToken;
-                }
-            } catch {
-                // Ignore body error
-            }
+    if (!refreshToken) {
+      try {
+        const body = await request.json();
+        const validation = logoutSchema.safeParse(body);
+        if (validation.success && validation.data.refreshToken) {
+          refreshToken = validation.data.refreshToken;
         }
-
-        const ipAddress = AuthUtils.getClientIp(request);
-        const userAgent = AuthUtils.getUserAgent(request);
-
-        Logger.info("Logout attempt initiated", { ip: ipAddress });
-
-        await LogoutService.logout(refreshToken, { userAgent, ipAddress });
-
-        const response = ApiResponse.success({ message: "Logged out successfully" });
-        response.cookies.delete("refreshToken");
-
-        return response;
-
-    } catch (error) {
-        if (error instanceof AppError) {
-            if (error.statusCode === 500) {
-                Logger.error("Logout internal error", { message: error.message });
-                return ApiResponse.error(error.message, 500);
-            }
-        }
-        Logger.error("Unhandled logout error", { error });
-        return ApiResponse.error("Internal server error", 500);
+      } catch {
+        // Ignore body error
+      }
     }
+
+    const ipAddress = AuthUtils.getClientIp(request);
+    const userAgent = AuthUtils.getUserAgent(request);
+
+    Logger.info("Logout attempt initiated", { ip: ipAddress });
+
+    await LogoutService.logout(refreshToken, { userAgent, ipAddress });
+
+    const response = ApiResponse.success({
+      message: "Logged out successfully",
+    });
+    response.cookies.delete("refreshToken");
+
+    return response;
+  } catch (error) {
+    if (error instanceof AppError) {
+      if (error.statusCode === 500) {
+        Logger.error("Logout internal error", { message: error.message });
+        return ApiResponse.error(error.message, 500);
+      }
+    }
+    Logger.error("Unhandled logout error", { error });
+    return ApiResponse.error("Internal server error", 500);
+  }
 }

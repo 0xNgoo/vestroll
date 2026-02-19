@@ -60,7 +60,7 @@ const Modal = () => {
       onClick={handleBackdropClick}
     >
       <div
-        className={`relative bg-white md:rounded-lg shadow-xl w-full ${sizeClasses[size]} ${!fullScreen && "rounded-lg"}`}
+        className={`relative bg-white md:rounded-lg shadow-xl w-full dark:bg-gray-900 ${sizeClasses[size]} ${!fullScreen && "rounded-lg"}`}
       >
         {/* Header */}
         {(title || showCloseButton) && (
@@ -68,7 +68,7 @@ const Modal = () => {
             {showCloseButton && (
               <button
                 onClick={handleClose}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
               >
                 <svg
                   className="w-6 h-6"
@@ -94,7 +94,9 @@ const Modal = () => {
         )}
 
         {/* Content */}
-        <div className="p-6">{customComponent ? customComponent : content}</div>
+        <div className="p-6 text-gray-700 dark:text-gray-300">
+          {customComponent ? customComponent : content}
+        </div>
 
         {/* Footer with buttons */}
         {showButtons && (
@@ -115,7 +117,7 @@ const Modal = () => {
                         ? "bg-red-500 text-white hover:bg-red-600"
                         : button.variant === "success"
                           ? "bg-green-500 text-white hover:bg-green-600"
-                          : "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
+                          : "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
                   } ${button.className || ""}`}
                   {...(button.disabled && { disabled: true })}
                 >
@@ -128,7 +130,7 @@ const Modal = () => {
                   <>
                     <button
                       onClick={handleClose}
-                      className="px-4 py-2 rounded-lg font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 transition-colors"
+                      className="px-4 py-2 rounded-lg font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 transition-colors"
                     >
                       {cancelText}
                     </button>

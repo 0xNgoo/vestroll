@@ -8,6 +8,7 @@ import DesktopHeader from "./desktop-header";
 import Sidebar from "./sidebar";
 import Link from "next/link";
 import { Bell, Menu, MenuSquare, Search } from "lucide-react";
+import { ThemeToggle } from "../shared/theme-toggle";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -31,7 +32,7 @@ export default function AppShell({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#f3f4f6]">
+    <div className="min-h-screen bg-[#f3f4f6] dark:bg-gray-950">
       {/* Main Layout */}
       <div className="flex">
         {/* Sidebar */}
@@ -42,13 +43,15 @@ export default function AppShell({
 
         <div className="flex-1">
           {/* Top Navigation Header */}
-          <header className="bg-white border-b border-[#DCE0E5] px-4 sm:px-6 py-2">
+          <DesktopHeader user={user} />
+
+          <header className="bg-white border-b border-[#DCE0E5] px-4 sm:px-6 py-2 md:hidden dark:bg-gray-900 dark:border-gray-800">
             <div className="flex items-center justify-between">
               {/* Center - Search bar */}
               <div className="flex-1 md:hidden">
                 <button
                   onClick={() => setMobileOpen(true)}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors dark:hover:bg-gray-800"
                   aria-label="Open menu"
                 >
                   <Menu className="w-8 h-8 text-[#7F8C9F]" />
@@ -69,7 +72,10 @@ export default function AppShell({
               {/* Right side - User profile */}
               <div className="flex items-center gap-4 ml-4">
                 <Search className="w-5 h-5 md:hidden text-[#7F8C9F] ml-2" />
-                <button className="relative p-2 hover:bg-gray-100 bg-white border border-[#DCE0E5] rounded-full transition-colors">
+                <div className="md:hidden">
+                  <ThemeToggle />
+                </div>
+                <button className="relative p-2 hover:bg-gray-100 bg-white border border-[#DCE0E5] rounded-full transition-colors dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                   <Bell className="w-6 h-6 text-gray-600" />
                   <span className="absolute top-1 right-3 w-2 h-2 bg-[#5E2A8C] rounded-full"></span>
                 </button>
@@ -103,7 +109,9 @@ export default function AppShell({
           </header>
 
           {/* Main Content Area */}
-          <main className="min-h-screen bg-[#f3f4f6]">{children}</main>
+          <main className="min-h-screen bg-[#f3f4f6] dark:bg-gray-950">
+            {children}
+          </main>
         </div>
       </div>
     </div>

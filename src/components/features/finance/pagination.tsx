@@ -50,7 +50,7 @@ export function Pagination({
 
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between mt-6 gap-4">
-      <p className="text-sm text-[#64748B]">
+      <p className="text-sm text-[#64748B] dark:text-gray-400">
         Showing {startItem} - {endItem} of {totalItems}
       </p>
 
@@ -60,7 +60,7 @@ export function Pagination({
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
             size="icon"
-            className="w-9 h-9 text-[#5A42DE] hover:bg-[#F5F3FF] disabled:opacity-50 cursor-pointer"
+            className="w-9 h-9 text-[#5A42DE] hover:bg-[#F5F3FF] disabled:opacity-50 cursor-pointer dark:text-purple-300 dark:hover:bg-purple-900/50"
           >
             <ChevronLeft size={18} />
           </Button>
@@ -73,8 +73,8 @@ export function Pagination({
               size="icon"
               className={`w-9 h-9 cursor-pointer ${
                 currentPage === page
-                  ? "bg-[#E8E5FA] text-[#5A42DE] border border-[#5A42DE]"
-                  : "text-[#64748B] hover:bg-[#E8E5FA]"
+                  ? "bg-[#E8E5FA] text-[#5A42DE] border border-[#5A42DE] dark:bg-purple-900/50 dark:text-purple-300 dark:border-purple-500"
+                  : "text-[#64748B] hover:bg-[#E8E5FA] dark:text-gray-400 dark:hover:bg-gray-800"
               }`}
             >
               {page}
@@ -85,39 +85,39 @@ export function Pagination({
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
             size="icon"
-            className="w-9 h-9 text-[#5A42DE] hover:bg-[#F5F3FF] disabled:opacity-50 cursor-pointer"
+            className="w-9 h-9 text-[#5A42DE] hover:bg-[#F5F3FF] disabled:opacity-50 cursor-pointer dark:text-purple-300 dark:hover:bg-purple-900/50"
           >
             <ChevronRight size={18} />
           </Button>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-sm text-[#64748B] whitespace-nowrap">
+          <span className="text-sm text-[#64748B] whitespace-nowrap dark:text-gray-400">
             Results per page
           </span>
           <Select
             value={resultsPerPage.toString()}
             onValueChange={(val) => onResultsPerPageChange(Number(val))}
           >
-            <SelectTrigger className="w-[70px] h-9 border-[#D1D5DB] text-[#5A42DE] hover:border-[#5A42DE] focus:border-[#5A42DE] focus:ring-[#E8E5FA]">
+            <SelectTrigger className="w-[70px] h-9 border-[#D1D5DB] text-[#5A42DE] hover:border-[#5A42DE] focus:border-[#5A42DE] focus:ring-[#E8E5FA] dark:bg-gray-800 dark:border-gray-700 dark:text-purple-300 dark:hover:border-purple-500">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="border-[#D1D5DB] bg-white">
+            <SelectContent className="border-[#D1D5DB] bg-white dark:bg-gray-800 dark:border-gray-700">
               <SelectItem
                 value="10"
-                className="text-[#64748B] focus:bg-[#E8E5FA] focus:text-[#5A42DE] cursor-pointer"
+                className="text-[#64748B] focus:bg-[#E8E5FA] focus:text-[#5A42DE] cursor-pointer dark:text-gray-300 dark:focus:bg-gray-700"
               >
                 10
               </SelectItem>
               <SelectItem
                 value="20"
-                className="text-[#64748B] focus:bg-[#E8E5FA] focus:text-[#5A42DE] cursor-pointer"
+                className="text-[#64748B] focus:bg-[#E8E5FA] focus:text-[#5A42DE] cursor-pointer dark:text-gray-300 dark:focus:bg-gray-700"
               >
                 20
               </SelectItem>
               <SelectItem
                 value="50"
-                className="text-[#64748B] focus:bg-[#E8E5FA] focus:text-[#5A42DE] cursor-pointer"
+                className="text-[#64748B] focus:bg-[#E8E5FA] focus:text-[#5A42DE] cursor-pointer dark:text-gray-300 dark:focus:bg-gray-700"
               >
                 50
               </SelectItem>

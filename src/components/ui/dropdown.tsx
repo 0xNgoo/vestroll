@@ -39,7 +39,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     typeof options[0] === "object"
       ? options.find(
           (opt): opt is DropdownOption =>
-            typeof opt === "object" && opt.label === value
+            typeof opt === "object" && opt.label === value,
         )
       : null;
 
@@ -71,7 +71,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <div className={`relative min-w-fit ${className}`} ref={dropdownRef}>
-      <label className="block text-sm font-medium text-[#414F62] mb-2">
+      <label className="block text-sm font-medium text-[#414F62] mb-2 dark:text-gray-300">
         {label}
       </label>
       <button
@@ -79,7 +79,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         onClick={toggleDropdown}
         className={`w-full min-w-fit flex items-center justify-between px-4 py-3 rounded-lg bg-[#F5F6F7] transition-colors text-[#414F62] ${
           error ? "border-red-300" : "border-gray-300"
-        }`}
+        } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200`}
       >
         <div className="flex items-center gap-x-2">
           {(selectedOption?.icon || icon) && (
@@ -91,7 +91,13 @@ const Dropdown: React.FC<DropdownProps> = ({
               className="w-[24px] h-[24px]"
             />
           )}
-          <span className={value ? "text-[#414F62]" : "text-[#BDC5D1]"}>
+          <span
+            className={
+              value
+                ? "text-[#414F62] dark:text-gray-200"
+                : "text-[#BDC5D1] dark:text-gray-500"
+            }
+          >
             {value || placeholder}
           </span>
         </div>
@@ -107,7 +113,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         >
           <path
             d="M13.2788 5.9668L8.93208 10.3135C8.41875 10.8268 7.57875 10.8268 7.06542 10.3135L2.71875 5.9668"
-            stroke="#414F62"
+            stroke="currentColor"
             strokeMiterlimit="10"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -115,7 +121,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-1 text-[#414F62] bg-white border border-gray-300 rounded-lg shadow-lg z-40 max-h-48 overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 mt-1 text-[#414F62] bg-white border border-gray-300 rounded-lg shadow-lg z-40 max-h-48 overflow-y-auto dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200">
           {options.map((option) => {
             const optionLabel =
               typeof option === "string" ? option : option.label;
@@ -126,7 +132,7 @@ const Dropdown: React.FC<DropdownProps> = ({
               <button
                 key={optionLabel}
                 onClick={() => handleOptionSelect(optionLabel)}
-                className="w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors flex items-center gap-x-2"
+                className="w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors flex items-center gap-x-2 dark:hover:bg-gray-700"
               >
                 {optionIcon && (
                   <Image

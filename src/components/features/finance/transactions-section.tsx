@@ -19,10 +19,12 @@ export function TransactionsSection({
   onSeeAll,
 }: TransactionsSectionProps) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
       {/* Header */}
-      <div className="flex items-center justify-between p-5 md:p-6 border-b border-gray-100">
-        <h2 className="text-base font-semibold text-[#0F172A]">Transactions</h2>
+      <div className="flex items-center justify-between p-5 md:p-6 border-b border-gray-100 dark:border-gray-800">
+        <h2 className="text-base font-semibold text-[#0F172A] dark:text-white">
+          Transactions
+        </h2>
         <Button
           onClick={onSeeAll}
           variant="ghost"

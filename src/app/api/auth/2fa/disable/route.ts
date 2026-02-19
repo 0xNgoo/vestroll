@@ -8,11 +8,36 @@ import { DisableTwoFactorSchema } from "@/api/validations/two-factor.schema";
 import { ZodError } from "zod";
 
 /**
- * POST /api/auth/2fa/disable
- * Disable 2FA (authenticated)
- *
- * Request body: { password: string, totpCode: string }
- * Returns: { message: "2FA disabled successfully" }
+ * @swagger
+ * /auth/2fa/disable:
+ *   post:
+ *     summary: Disable 2FA
+ *     description: Disable two-factor authentication for the authenticated user
+ *     tags: [2FA]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - password
+ *               - totpCode
+ *             properties:
+ *               password:
+ *                 type: string
+ *                 format: password
+ *               totpCode:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: 2FA disabled successfully
+ *       400:
+ *         description: Invalid TOTP code
+ *       401:
+ *         description: Unauthorized or invalid password
  */
 export async function POST(req: NextRequest) {
   try {
@@ -27,7 +52,7 @@ export async function POST(req: NextRequest) {
     await TwoFactorService.disableTwoFactor(
       userId,
       validatedData.password,
-      validatedData.totpCode
+      validatedData.totpCode,
     );
 
     // 4. Send notification email
@@ -39,7 +64,7 @@ export async function POST(req: NextRequest) {
         message: "2FA disabled successfully",
       },
       "Two-factor authentication has been disabled on your account.",
-      200
+      200,
     );
   } catch (error) {
     // Handle Zod validation errors

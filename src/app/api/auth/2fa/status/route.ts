@@ -5,10 +5,28 @@ import { AuthUtils } from "@/api/utils/auth";
 import { TwoFactorService } from "@/api/services/two-factor.service";
 
 /**
- * GET /api/auth/2fa/status
- * Check 2FA status (authenticated)
- *
- * Returns: { enabled: boolean, backupCodesRemaining: number }
+ * @swagger
+ * /auth/2fa/status:
+ *   get:
+ *     summary: Check 2FA status
+ *     description: Retrieve the current 2FA status for the authenticated user
+ *     tags: [2FA]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: 2FA status retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 enabled:
+ *                   type: boolean
+ *                 backupCodesRemaining:
+ *                   type: integer
+ *       401:
+ *         description: Unauthorized
  */
 export async function GET(req: NextRequest) {
   try {
@@ -25,7 +43,7 @@ export async function GET(req: NextRequest) {
         backupCodesRemaining: status.backupCodesRemaining,
       },
       "2FA status retrieved successfully.",
-      200
+      200,
     );
   } catch (error) {
     // Handle app errors

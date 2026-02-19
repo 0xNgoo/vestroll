@@ -18,16 +18,18 @@ export default function PayrollPage() {
 
   return (
     <div
-      className={`min-h-screen bg-[#F5F6F7] ${geistSans.variable} font-sans`}
+      className={`min-h-screen bg-[#F5F6F7] ${geistSans.variable} font-sans dark:bg-gray-950`}
     >
       {/* Header Section */}
-      <div className="bg-white border-b border-[#DCE0E5] px-4 sm:px-6 py-4 sm:py-6">
+      <div className="bg-white border-b border-[#DCE0E5] px-4 sm:px-6 py-4 sm:py-6 dark:bg-gray-900 dark:border-gray-800">
         <div className="max-w-9xl mx-auto">
           {/* Top section with title and export button */}
           <div className="flex sm:flex-row sm:items-center sm:justify-between gap-x-36 mb-6">
             <div>
-              <p className="text-sm text-[#6B7280] mb-1">Overview</p>
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#111827]">
+              <p className="text-sm text-[#6B7280] mb-1 dark:text-gray-400">
+                Overview
+              </p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#111827] dark:text-white">
                 Payroll
               </h1>
             </div>
@@ -39,13 +41,13 @@ export default function PayrollPage() {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex border-b border-[#E5E7EB]">
+          <div className="flex border-b border-[#E5E7EB] dark:border-gray-800">
             <button
               onClick={() => setActiveTab("Overview")}
               className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors duration-200 ${
                 activeTab === "Overview"
                   ? "border-[#5E2A8C] text-[#5E2A8C]"
-                  : "border-transparent text-[#6B7280] hover:text-[#374151]"
+                  : "border-transparent text-[#6B7280] hover:text-[#374151] dark:text-gray-400 dark:hover:text-gray-200"
               }`}
             >
               Overview
@@ -55,7 +57,7 @@ export default function PayrollPage() {
               className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors duration-200 ${
                 activeTab === "Payout history"
                   ? "border-[#5E2A8C] text-[#5E2A8C]"
-                  : "border-transparent text-[#6B7280] hover:text-[#374151]"
+                  : "border-transparent text-[#6B7280] hover:text-[#374151] dark:text-gray-400 dark:hover:text-gray-200"
               }`}
             >
               Payout history
@@ -70,7 +72,7 @@ export default function PayrollPage() {
           <>
             {/* image Banner */}
             <div
-              className="bg-gradient-to-r from-[#5E2A8C] to-[#A855F7] rounded-2xl p-6 sm:p-8 mb-5 text-white relative overflow-hidden"
+              className={`bg-linear-to-r from-[#5E2A8C] to-[#A855F7] rounded-2xl p-6 sm:p-8 mb-5 text-white relative overflow-hidden`}
               style={{
                 backgroundImage: "url(/images/payout-group.png)",
                 backgroundSize: "cover",
@@ -92,10 +94,10 @@ export default function PayrollPage() {
             {/* Payout Schedule Section */}
             <div className="mb-2">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
-                <h2 className="hidden md:flex lg:flex text-xl font-semibold text-[#111827]">
+                <h2 className="hidden md:flex lg:flex text-xl font-semibold text-[#111827] dark:text-white">
                   Payout Schedule
                 </h2>
-                <h2 className="flex md:hidden lg:hidden text-xl font-semibold text-[#111827]">
+                <h2 className="flex md:hidden lg:hidden text-xl font-semibold text-[#111827] dark:text-white">
                   Payroll
                 </h2>
 
@@ -105,7 +107,7 @@ export default function PayrollPage() {
                     <input
                       type="search"
                       placeholder="Search by name..."
-                      className="w-full sm:w-80 pl-4 pr-24 py-2.5 bg-white border border-[#DCE0E5] rounded-lg text-sm text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#5E2A8C] focus:border-[#5E2A8C] transition-colors duration-200"
+                      className="w-full sm:w-80 pl-4 pr-24 py-2.5 bg-white border border-[#DCE0E5] rounded-lg text-sm text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#5E2A8C] focus:border-[#5E2A8C] transition-colors duration-200 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:placeholder-gray-500"
                     />
                     <svg
                       className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9CA3AF]"
@@ -212,7 +214,7 @@ export default function PayrollPage() {
                       </text>
                     </svg>
                   </div>
-                  <button className="flex items-center justify-center px-3 py-2.5 bg-white border border-[#DCE0E5] rounded-lg text-[#6B7280] hover:bg-[#F9FAFB] focus:outline-none focus:ring-2 focus:ring-[#5E2A8C] transition-colors duration-200">
+                  <button className="flex items-center justify-center px-3 py-2.5 bg-white border border-[#DCE0E5] rounded-lg text-[#6B7280] hover:bg-[#F9FAFB] focus:outline-none focus:ring-2 focus:ring-[#5E2A8C] transition-colors duration-200 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">
                     <Filter className="h-4 w-4" />
                   </button>
                 </div>
@@ -220,7 +222,7 @@ export default function PayrollPage() {
             </div>
 
             {/* Empty State */}
-            <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-sm ">
+            <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-sm dark:bg-gray-900 dark:border-gray-800">
               <div className="flex flex-col items-center justify-center py-16 sm:py-20 px-4 text-center">
                 {/* Empty State Illustration */}
                 <div className="mb-8">
@@ -233,10 +235,10 @@ export default function PayrollPage() {
                 </div>
 
                 {/* Empty State Message */}
-                <h3 className="text-xl font-semibold text-[#111827] mb-3">
+                <h3 className="text-xl font-semibold text-[#111827] mb-3 dark:text-white">
                   You haven&apos;t set up any payrolls.
                 </h3>
-                <p className="text-[#9CA3AF] max-w-sm text-sm">
+                <p className="text-[#9CA3AF] max-w-sm text-sm dark:text-gray-400">
                   Employees you put on payroll will be displayed here
                 </p>
               </div>

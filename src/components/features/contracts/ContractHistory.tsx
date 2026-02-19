@@ -27,16 +27,18 @@ const ContractHistoryCard = (contract: Contract) => {
     <Link
       href={`/app/contracts/${contract.id}?title=${encodeURIComponent(contract.title)}`}
     >
-      <div className="min-w-[250px] bg-white rounded-xl space-y-2 p-4">
+      <div className="min-w-[250px] bg-white rounded-xl space-y-2 p-4 dark:bg-gray-900">
         <div className="flex justify-between">
           <Image src={"/contract-icon.png"} alt="icon" width={40} height={40} />
-          <div className="p-2 flex gap-2 bg-gray-100 rounded-full">
+          <div className="p-2 flex gap-2 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-gray-300">
             <CircleDollarSign className="text-green-500" />
             {contract.amount.toFixed(2)}{" "}
             {contract.paymentType === 1 ? "USD" : "USDT"}
           </div>
         </div>
-        <h4 className="font-semibold text-sm md:text-base">{contract.title}</h4>
+        <h4 className="font-semibold text-sm md:text-base dark:text-white">
+          {contract.title}
+        </h4>
         {/* period */}
         <div className="flex gap-2">
           <Image src={"/calander.svg"} alt="icon" width={14} height={14} />
@@ -44,14 +46,14 @@ const ContractHistoryCard = (contract: Contract) => {
             {contract.period.startDate} - {contract.period.endDate}
           </small>
         </div>
-        <hr className="my-4 text-border-primary" />
+        <hr className="my-4 text-border-primary dark:border-gray-800" />
         <div className="flex justify-between">
-          <p>Fixed rate</p>
+          <p className="dark:text-gray-400">Fixed rate</p>
           {/* Status */}
           <div
             className={cn(
               "px-2 py-1 rounded-full text-xs border w-fit",
-              getStatusClass(contract.status)
+              getStatusClass(contract.status),
             )}
           >
             <span className="text-xs">{contract.status}</span>
@@ -109,12 +111,14 @@ function ContractHistory() {
   return (
     <div className="py-4">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-        <p className="font-semibold text-text-header">History</p>
+        <p className="font-semibold text-text-header dark:text-white">
+          History
+        </p>
         <div className="flex items-center w-full gap-1 md:max-w-85">
-          <div className="flex justify-between items-center w-full px-4 py-2 bg-white border rounded-lg border-border-primary h-9">
+          <div className="flex justify-between items-center w-full px-4 py-2 bg-white border rounded-lg border-border-primary h-9 dark:bg-gray-900 dark:border-gray-800">
             <input
               type="search"
-              className="w-full text-xs text-gray-400 outline-none"
+              className="w-full text-xs text-gray-400 outline-none dark:bg-gray-900 dark:text-white"
               placeholder="Search..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
@@ -128,7 +132,7 @@ function ContractHistory() {
             <button
               onClick={() => setShowFilterModal(true)}
               className="flex items-center justify-center bg-white border border-[#DCE0E5]
-                    rounded-lg cursor-pointer w-9 h-9 hover:bg-gray-50 transition-colors"
+                    rounded-lg cursor-pointer w-9 h-9 hover:bg-gray-50 transition-colors dark:bg-gray-900 dark:border-gray-800 dark:hover:bg-gray-800 dark:text-white"
             >
               <ListFilterIcon size={14} />
             </button>
@@ -140,11 +144,13 @@ function ContractHistory() {
         {filters.contractType !== filters.status && (
           <div className="flex gap-3 items-center">
             {filters.contractType !== "All" && (
-              <p className="p-2 bg-[#F3EBF9] flex items-center gap-2 rounded-xl">
-                <span className="font-medium text-[#5E2A8C]">
+              <p className="p-2 bg-[#F3EBF9] flex items-center gap-2 rounded-xl dark:bg-gray-800">
+                <span className="font-medium text-[#5E2A8C] dark:text-purple-400">
                   Contract type:
                 </span>
-                <span className="text-[#17171C]">{filters.contractType}</span>
+                <span className="text-[#17171C] dark:text-gray-300">
+                  {filters.contractType}
+                </span>
                 <span
                   className="text-[#7F8C9F] cursor-pointer hover:text-red-400 p-0.5"
                   onClick={() => handleRemoveFilter("contractType")}
@@ -154,9 +160,13 @@ function ContractHistory() {
               </p>
             )}
             {filters.status !== "All" && (
-              <p className="p-2 bg-[#F3EBF9] flex items-center gap-2 rounded-xl">
-                <span className="font-medium text-[#5E2A8C]">Status:</span>
-                <span className="text-[#17171C]">{filters.status}</span>
+              <p className="p-2 bg-[#F3EBF9] flex items-center gap-2 rounded-xl dark:bg-gray-800">
+                <span className="font-medium text-[#5E2A8C] dark:text-purple-400">
+                  Status:
+                </span>
+                <span className="text-[#17171C] dark:text-gray-300">
+                  {filters.status}
+                </span>
                 <span
                   className="text-[#7F8C9F] cursor-pointer hover:text-red-400 p-0.5"
                   onClick={() => handleRemoveFilter("status")}
@@ -167,7 +177,7 @@ function ContractHistory() {
             )}
             <button
               className="p-2 border border-[#5E2A8C] text-[#5E2A8C] rounded-xl
-                cursor-pointer"
+                cursor-pointer dark:border-purple-400 dark:text-purple-400"
               onClick={handleFilterReset}
             >
               Reset

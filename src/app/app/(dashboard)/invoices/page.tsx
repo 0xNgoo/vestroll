@@ -27,7 +27,7 @@ const Invoices: React.FC = () => {
       invoice.invoiceNo,
     ]
       .filter(Boolean)
-      .some((v) => String(v).toLowerCase().includes(search.toLowerCase()))
+      .some((v) => String(v).toLowerCase().includes(search.toLowerCase())),
   );
 
   const showModal = () => console.log("Show filter modal");
@@ -60,19 +60,23 @@ const Invoices: React.FC = () => {
     switch (column.key) {
       case "title":
         return (
-          <div className="text-text-header font-semibold">{item.title}</div>
+          <div className="text-text-header font-semibold dark:text-white">
+            {item.title}
+          </div>
         );
       case "amount":
         return (
-          <div className="text-text-header font-semibold">
+          <div className="text-text-header font-semibold dark:text-white">
             {item.amount.toLocaleString()}.00
           </div>
         );
       case "paidIn":
         return (
-          <div className="flex items-center font-medium gap-1 py-1.5 px-3 border border-border-primary bg-fill-background rounded-full w-fit mx-auto">
+          <div className="flex items-center font-medium gap-1 py-1.5 px-3 border border-border-primary bg-fill-background rounded-full w-fit mx-auto dark:border-gray-700 dark:bg-gray-800">
             <UsdtIcon />
-            <span className="text-text-header">{item.paidIn}</span>
+            <span className="text-text-header dark:text-white">
+              {item.paidIn}
+            </span>
           </div>
         );
       case "status":
@@ -84,7 +88,11 @@ const Invoices: React.FC = () => {
           </span>
         );
       case "invoiceNo":
-        return <p className="font-medium text-gray-900">{item.invoiceNo}</p>;
+        return (
+          <p className="font-medium text-gray-900 dark:text-gray-100">
+            {item.invoiceNo}
+          </p>
+        );
       case "issueDate":
         return <span className="text-gray-600">{item.issueDate}</span>;
       default:
@@ -98,13 +106,17 @@ const Invoices: React.FC = () => {
   const renderMobileCell = (item: Invoice) => (
     <div className="flex gap-4 justify-between">
       <div className="space-y-2 flex-1 min-w-0">
-        <p className="truncate font-semibold text-gray-500">{item.invoiceNo}</p>
+        <p className="truncate font-semibold text-gray-500 dark:text-gray-400">
+          {item.invoiceNo}
+        </p>
         <span className="flex items-center gap-2 ">
-          <p className="text-xs font-medium text-gray-300">{item.amount}</p>
-          <div className="w-px self-stretch bg-gray-150" />
+          <p className="text-xs font-medium text-gray-300 dark:text-gray-500">
+            {item.amount}
+          </p>
+          <div className="w-px self-stretch bg-gray-150 dark:bg-gray-700" />
           <div className="flex items-center font-medium gap-1 ">
             <UsdtIcon />
-            <span className="text-gray-600 text-sm font-medium">
+            <span className="text-gray-600 text-sm font-medium dark:text-gray-400">
               {item.paidIn}
             </span>
           </div>
@@ -124,7 +136,7 @@ const Invoices: React.FC = () => {
 
   const handleSelectItem = (id: string, checked: boolean) =>
     setSelectedItems((prev) =>
-      checked ? [...prev, id] : prev.filter((x) => x !== id)
+      checked ? [...prev, id] : prev.filter((x) => x !== id),
     );
 
   const handleSelectAll = (checked: boolean) =>
@@ -135,8 +147,8 @@ const Invoices: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col flex-1 bg-gray-100 w-full min-h-full">
-      <div className="bg-white py-6 border-b border-[#DCE0E5]">
+    <div className="flex flex-col flex-1 bg-gray-100 w-full min-h-full dark:bg-gray-950">
+      <div className="bg-white py-6 border-b border-[#DCE0E5] dark:bg-gray-900 dark:border-gray-800">
         <TitleHeader title="Invoices" isBackButton={false} isExportButton />
       </div>
 
@@ -147,18 +159,22 @@ const Invoices: React.FC = () => {
             <div className="gap-4 w-full flex overflow-x-auto mb-4 sm:grid sm:grid-cols-4 sm:overflow-x-visible">
               {invoiceMetricsData.map((metric) => (
                 <div key={metric.title} className="min-w-3xs w-full">
-                  <div className="h-full p-4 bg-white rounded-lg min-w-60 lg:w-full">
+                  <div className="h-full p-4 bg-white rounded-lg min-w-60 lg:w-full dark:bg-gray-900">
                     <span className="flex justify-between text-xs font-medium">
-                      <p className="text-text-subtext ">{metric.title}</p>
-                      <p className="text-[#7F8C9F]">This year</p>
+                      <p className="text-text-subtext dark:text-gray-400">
+                        {metric.title}
+                      </p>
+                      <p className="text-[#7F8C9F] dark:text-gray-500">
+                        This year
+                      </p>
                     </span>
-                    <hr className="my-4 text-border-primary" />
+                    <hr className="my-4 text-border-primary dark:border-gray-800" />
                     <div className="flex items-center justify-between">
                       <span>
-                        <p className="mb-1 text-2xl font-bold text-text-header lg:text-4xl">
+                        <p className="mb-1 text-2xl font-bold text-text-header lg:text-4xl dark:text-white">
                           {metric.value}
                         </p>
-                        <p className="text-sm font-medium text-[#7F8C9F]">
+                        <p className="text-sm font-medium text-[#7F8C9F] dark:text-gray-500">
                           {metric.subValue}
                         </p>
                       </span>

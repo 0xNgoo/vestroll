@@ -40,7 +40,7 @@ const TeamMgtEmployees: React.FC<TeamMgtEmployeesProps> = ({ employees }) => {
   });
 
   const activeEmployeesCount = employees.filter(
-    (emp) => emp.status === "Active"
+    (emp) => emp.status === "Active",
   ).length;
 
   const handleFilterApply = (newFilters: Record<string, string>) => {
@@ -83,7 +83,9 @@ const TeamMgtEmployees: React.FC<TeamMgtEmployeesProps> = ({ employees }) => {
       />
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-4">
         <div>
-          <h3 className="text-lg font-bold text-gray-900">Employees</h3>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+            Employees
+          </h3>
         </div>
         <div className="flex items-center gap-3 w-full md:w-auto">
           <div className="flex-1 md:flex-initial md:min-w-96">

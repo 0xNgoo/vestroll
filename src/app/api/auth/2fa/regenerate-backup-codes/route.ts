@@ -8,11 +8,32 @@ import { RegenerateBackupCodesSchema } from "@/api/validations/two-factor.schema
 import { ZodError } from "zod";
 
 /**
- * POST /api/auth/2fa/regenerate-backup-codes
- * Generate new backup codes (authenticated)
- *
- * Request body: { totpCode: string }
- * Returns: { backupCodes: string[] }
+ * @swagger
+ * /auth/2fa/regenerate-backup-codes:
+ *   post:
+ *     summary: Regenerate backup codes
+ *     description: Generate a new set of backup codes. Requires TOTP verification.
+ *     tags: [2FA]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - totpCode
+ *             properties:
+ *               totpCode:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Backup codes regenerated successfully
+ *       400:
+ *         description: Invalid TOTP code
+ *       401:
+ *         description: Unauthorized
  */
 export async function POST(req: NextRequest) {
   try {
@@ -26,7 +47,7 @@ export async function POST(req: NextRequest) {
     // 3. Regenerate backup codes
     const backupCodes = await TwoFactorService.regenerateBackupCodes(
       userId,
-      validatedData.totpCode
+      validatedData.totpCode,
     );
 
     // 4. Send notification email
@@ -36,10 +57,11 @@ export async function POST(req: NextRequest) {
     return ApiResponse.success(
       {
         backupCodes,
-        warning: "Please save these backup codes in a secure location. They will not be shown again.",
+        warning:
+          "Please save these backup codes in a secure location. They will not be shown again.",
       },
       "Backup codes regenerated successfully.",
-      200
+      200,
     );
   } catch (error) {
     // Handle Zod validation errors

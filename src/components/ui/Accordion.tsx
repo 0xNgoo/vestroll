@@ -17,7 +17,7 @@ export const Accordion: FC<AccordionProps> = ({
 }) => {
   return (
     <div
-      className={`w-full overflow-hidden transition-all duration-300 ease-in-out  rounded-lg   dark:bg-gray-500 bg-white`}
+      className={`w-full overflow-hidden transition-all duration-300 ease-in-out  rounded-lg   dark:bg-gray-800 bg-white`}
     >
       <div
         onClick={handleOpen}

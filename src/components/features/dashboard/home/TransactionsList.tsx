@@ -42,14 +42,14 @@ function TransactionsList() {
 
   return (
     <section className="p-2 sm:p-4">
-      <div className="bg-white sm:bg-white p-4 rounded-lg">
+      <div className="bg-white sm:bg-white p-4 rounded-lg dark:bg-gray-900">
         <div className="flex items-center w-full justify-between mb-6">
-          <h2 className="text-base font-semibold text-gray-900">
+          <h2 className="text-base font-semibold text-gray-900 dark:text-white">
             Transactions
           </h2>
           <Link
             href="/transactions"
-            className="flex gap-1 text-xs font-medium text-[#5A42DE] items-center hover:opacity-80"
+            className="flex gap-1 text-xs font-medium text-[#5A42DE] items-center hover:opacity-80 dark:text-purple-400"
           >
             See all
             <ChevronRight size={14} />
@@ -59,8 +59,8 @@ function TransactionsList() {
         {transactions.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="min-w-full">
-              <thead className="hidden md:table-header-group ltr:text-left rtl:text-right bg-gray-50 rounded-t-lg text-xs font-medium">
-                <tr className="*:font-medium *:text-gray-500">
+              <thead className="hidden md:table-header-group ltr:text-left rtl:text-right bg-gray-50 rounded-t-lg text-xs font-medium dark:bg-gray-800">
+                <tr className="*:font-medium *:text-gray-500 dark:*:text-gray-400">
                   <th className="px-3 py-4 whitespace-nowrap"></th>
                   <th className="px-3 py-4 whitespace-nowrap">
                     Transaction ID
@@ -72,16 +72,16 @@ function TransactionsList() {
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
                 {transactions.map((transaction, index) => (
                   <tr
-                    className="*:text-[#17171C] *:first:font-medium"
+                    className="*:text-[#17171C] *:first:font-medium dark:*:text-gray-300"
                     key={index}
                   >
                     <td className="hidden md:block px-3 py-4">
                       <input
                         type="checkbox"
-                        className="w-4 h-4 rounded border-gray-300 text-[#5A42DE] focus:ring-[#5A42DE]"
+                        className="w-4 h-4 rounded border-gray-300 text-[#5A42DE] focus:ring-[#5A42DE] dark:border-gray-600 dark:bg-gray-700"
                       />
                     </td>
                     <td className="hidden md:table-cell px-3 py-4 whitespace-nowrap">
@@ -94,10 +94,12 @@ function TransactionsList() {
                       {/* mobile view */}
                       <small className="text-xs md:hidden">
                         <div className="flex items-center gap-2">
-                          <span className="text-[#7F8C9F]">
+                          <span className="text-[#7F8C9F] dark:text-gray-400">
                             ${transaction.amount.toFixed(2)}
                           </span>
-                          <span className="text-[#DCE0E5]">|</span>
+                          <span className="text-[#DCE0E5] dark:text-gray-600">
+                            |
+                          </span>
                           <p className="flex items-center gap-1">
                             <Image
                               src={currencies[0].icon}
@@ -106,7 +108,7 @@ function TransactionsList() {
                               width={20}
                               height={20}
                             />
-                            <span className="text-[#17171C]">
+                            <span className="text-[#17171C] dark:text-gray-300">
                               {currencies[0].label}
                             </span>
                           </p>
@@ -116,7 +118,7 @@ function TransactionsList() {
                     <td className="hidden md:table-cell px-3 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">
                         <span>${transaction.amount.toFixed(2)}</span>
-                        <p className="flex items-center gap-1 px-2 border bg-[#F5F6F7] rounded-xl">
+                        <p className="flex items-center gap-1 px-2 border bg-[#F5F6F7] rounded-xl dark:bg-gray-800 dark:border-gray-700">
                           <Image
                             src={currencies[0].icon}
                             alt="fiat"
@@ -124,7 +126,7 @@ function TransactionsList() {
                             width={20}
                             height={20}
                           />
-                          <span className="text-[#17171C]">
+                          <span className="text-[#17171C] dark:text-gray-300">
                             {currencies[0].label}
                           </span>
                         </p>
@@ -135,7 +137,7 @@ function TransactionsList() {
                       <div
                         className={cn(
                           "px-2 py-1 rounded-full text-xs flex items-center gap-1 border w-fit",
-                          getStatusClass(transaction.status)
+                          getStatusClass(transaction.status),
                         )}
                       >
                         {getStatusIcon(transaction.status)}
@@ -144,7 +146,7 @@ function TransactionsList() {
                         </span>
                       </div>
                       {/* mobile view */}
-                      <small className="md:hidden text-xs text-[#414F62]">
+                      <small className="md:hidden text-xs text-[#414F62] dark:text-gray-400">
                         {transaction.timestamp}
                       </small>
                     </td>

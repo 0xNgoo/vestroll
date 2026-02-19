@@ -37,7 +37,7 @@ function AuthLayer({ children }: AuthLayoutProps) {
       </motion.div>
 
       {/* Left Side */}
-      <div className="hidden relative    justify-center lg:flex z-20 flex-1 max-w-[640px] rounded-2xl bg-primary-500">
+      <div className="hidden relative justify-center lg:flex z-20 w-[640px] min-w-[640px] rounded-2xl bg-primary-500">
         <div className="relative mt-25">
           <motion.div
             initial={{

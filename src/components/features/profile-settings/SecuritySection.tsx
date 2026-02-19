@@ -20,17 +20,19 @@ const SecuritySection: React.FC<SecuritySectionProps> = ({
   return (
     <div className="space-y-8  rounded">
       {/* Security Section */}
-      <div className="bg-[#FFFFFF] p-4 rounded-lg">
+      <div className="bg-[#FFFFFF] p-4 rounded-lg dark:bg-gray-900">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
           <div className="flex flex-col">
-            <h2 className="text-lg font-medium text-gray-900">Security</h2>
-            <p className="text-sm text-gray-600">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+              Security
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               Two-factor authentication (2FA)
             </p>
           </div>
           <button
             onClick={handle2FAToggle}
-            className="flex flex-row items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-[#5E2A8C] border border-[#5E2A8C] rounded-lg hover:bg-[#5E2A8C] hover:text-white transition-colors flex-shrink-0 w-full sm:w-auto justify-center"
+            className="flex flex-row items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-[#5E2A8C] border border-[#5E2A8C] rounded-lg hover:bg-[#5E2A8C] hover:text-white transition-colors shrink-0 w-full sm:w-auto justify-center dark:text-purple-300 dark:border-purple-300 dark:hover:bg-purple-900/50"
           >
             <Image src={"/setting.png"} alt="edit" width={16} height={16} />
             <span className="hidden sm:inline">Setup</span>
@@ -39,16 +41,16 @@ const SecuritySection: React.FC<SecuritySectionProps> = ({
         </div>
 
         {/* Two-Factor Authentication */}
-        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6 dark:bg-orange-900/20 dark:border-orange-800">
           <div className="flex items-start gap-3">
-            <div className="w-5 h-5 rounded-full bg-orange-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <div className="w-5 h-5 rounded-full bg-orange-400 flex items-center justify-center shrink-0 mt-0.5">
               <span className="text-white text-xs">!</span>
             </div>
             <div className="flex-1">
-              <h3 className="text-sm font-medium text-gray-900 mb-1">
+              <h3 className="text-sm font-medium text-gray-900 mb-1 dark:text-white">
                 Two-factor authentication (2FA)
               </h3>
-              <p className="text-sm text-gray-600 mb-3">
+              <p className="text-sm text-gray-600 mb-3 dark:text-gray-400">
                 Two-factor authentication is an additional security measure to
                 protect your account. Once set up, depending on your
                 authentication method, each time you access your account you
@@ -61,16 +63,18 @@ const SecuritySection: React.FC<SecuritySectionProps> = ({
       </div>
 
       {/* Legal Section */}
-      <div className="bg-white p-4 rounded-lg">
-        <h2 className="text-lg font-medium text-gray-900 mb-4">Legal</h2>
+      <div className="bg-white p-4 rounded-lg dark:bg-gray-900">
+        <h2 className="text-lg font-medium text-gray-900 mb-4 dark:text-white">
+          Legal
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-          <button className="text-xs sm:text-sm text-[#414F62] bg-[#F5F6F7] py-3 px-4 sm:py-2 sm:px-3 rounded-full hover:bg-[#E5E7EB] hover:text-[#374151] transition-colors text-center whitespace-nowrap">
+          <button className="text-xs sm:text-sm text-[#414F62] bg-[#F5F6F7] py-3 px-4 sm:py-2 sm:px-3 rounded-full hover:bg-[#E5E7EB] hover:text-[#374151] transition-colors text-center whitespace-nowrap dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
             Help & Support
           </button>
-          <button className="text-xs sm:text-sm text-[#414F62] bg-[#F5F6F7] py-3 px-4 sm:py-2 sm:px-3 rounded-full hover:bg-[#E5E7EB] hover:text-[#374151] transition-colors text-center whitespace-nowrap">
+          <button className="text-xs sm:text-sm text-[#414F62] bg-[#F5F6F7] py-3 px-4 sm:py-2 sm:px-3 rounded-full hover:bg-[#E5E7EB] hover:text-[#374151] transition-colors text-center whitespace-nowrap dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
             Terms and conditions
           </button>
-          <button className="text-xs sm:text-sm text-[#414F62] bg-[#F5F6F7] py-3 px-4 sm:py-2 sm:px-3 rounded-full hover:bg-[#E5E7EB] hover:text-[#374151] transition-colors text-center whitespace-nowrap">
+          <button className="text-xs sm:text-sm text-[#414F62] bg-[#F5F6F7] py-3 px-4 sm:py-2 sm:px-3 rounded-full hover:bg-[#E5E7EB] hover:text-[#374151] transition-colors text-center whitespace-nowrap dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
             Privacy notice
           </button>
         </div>

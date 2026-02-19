@@ -14,6 +14,8 @@ interface DesktopHeaderProps {
   onSearch?: (value: string) => void;
 }
 
+import { ThemeToggle } from "../shared/theme-toggle";
+
 export default function DesktopHeader({
   user = {
     name: "Peter",
@@ -24,7 +26,7 @@ export default function DesktopHeader({
   onSearch,
 }: DesktopHeaderProps) {
   return (
-    <header className="hidden lg:flex items-center justify-between border-b border-gray-200 bg-white px-6 py-3">
+    <header className="hidden lg:flex items-center justify-between border-b border-gray-200 bg-white px-6 py-3 dark:border-gray-800 dark:bg-gray-900">
       {/* Search input */}
       <div className="flex-1 max-w-[272px]">
         <div className="relative">
@@ -32,7 +34,7 @@ export default function DesktopHeader({
             type="text"
             placeholder="Search..."
             onChange={(e) => onSearch?.(e.target.value)}
-            className="w-full rounded-lg border border-gray-200 bg-[#F9FAFB] px-4 py-2  text-sm text-gray-700 placeholder-gray-400 focus:border-[#6d28d9] focus:ring-2 focus:ring-[#6d28d9] focus:outline-none"
+            className="w-full rounded-lg border border-gray-200 bg-[#F9FAFB] px-4 py-2 text-sm text-gray-700 placeholder-gray-400 focus:border-[#6d28d9] focus:ring-2 focus:ring-[#6d28d9] focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500"
           />
           <svg
             className="absolute right-3 top-2.5 h-4 w-4 text-gray-400"
@@ -52,14 +54,16 @@ export default function DesktopHeader({
 
       {/* Right side */}
       <div className="flex items-center gap-6">
+        <ThemeToggle />
+
         {/* Notification */}
-        <button className="relative rounded-full border border-[#DCE0E5] p-2 hover:bg-gray-100 focus:outline-none">
+        <button className="relative rounded-full border border-[#DCE0E5] p-2 hover:bg-gray-100 focus:outline-none dark:border-gray-700 dark:hover:bg-gray-800">
           <Image
             src="/vuesax.svg"
             alt="Notifications"
             width={22}
             height={22}
-            className="object-contain"
+            className="object-contain dark:invert"
           />
           {/* Purple dot */}
           <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-[#6d28d9]"></span>
@@ -101,14 +105,16 @@ export default function DesktopHeader({
 
           {/* User info */}
           <div className="flex flex-col text-left">
-            <span className="text-sm font-medium text-gray-900">
+            <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
               {user.name}
             </span>
-            <span className="text-xs text-gray-500">{user.userType}</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              {user.userType}
+            </span>
           </div>
 
           {/* Dropdown arrow */}
-          <ChevronDown className="h-4 w-4 text-gray-500" />
+          <ChevronDown className="h-4 w-4 text-gray-500 dark:text-gray-400" />
         </div>
       </div>
     </header>

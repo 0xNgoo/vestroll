@@ -11,11 +11,38 @@ import { users } from "@/api/db/schema";
 import { eq } from "drizzle-orm";
 
 /**
- * POST /api/auth/2fa/verify
- * Verify 2FA during login
- *
- * Request body: { userId: string, totpCode?: string, backupCode?: string }
- * Returns: { accessToken: string, refreshToken: string, user: object }
+ * @swagger
+ * /auth/2fa/verify:
+ *   post:
+ *     summary: Verify 2FA during login
+ *     description: Authenticate user with TOTP code or backup code after initial credentials verification
+ *     tags: [2FA]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId
+ *             properties:
+ *               userId:
+ *                 type: string
+ *               totpCode:
+ *                 type: string
+ *                 description: 6-digit verification code
+ *               backupCode:
+ *                 type: string
+ *                 description: One of the 10 backup codes
+ *     responses:
+ *       200:
+ *         description: 2FA verification successful
+ *       400:
+ *         description: Invalid code or missing parameters
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden - Rate limit or account locked
  */
 export async function POST(req: NextRequest) {
   try {
@@ -33,7 +60,7 @@ export async function POST(req: NextRequest) {
       validatedData.totpCode,
       validatedData.backupCode,
       ipAddress,
-      userAgent
+      userAgent,
     );
 
     // 4. Fetch user data
@@ -74,7 +101,7 @@ export async function POST(req: NextRequest) {
         method: result.method,
       },
       "2FA verification successful",
-      200
+      200,
     );
   } catch (error) {
     // Get user info for email notification if available
@@ -95,12 +122,15 @@ export async function POST(req: NextRequest) {
                 user.email,
                 user.firstName,
                 ipAddress,
-                user.failedTwoFactorAttempts
+                user.failedTwoFactorAttempts,
               );
 
               // Send account locked email if applicable
               if (error.message.includes("locked")) {
-                await EmailService.sendAccountLockedEmail(user.email, user.firstName);
+                await EmailService.sendAccountLockedEmail(
+                  user.email,
+                  user.firstName,
+                );
               }
             }
           }

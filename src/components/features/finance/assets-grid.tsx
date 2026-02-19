@@ -9,7 +9,7 @@ interface AssetsGridProps {
 export function AssetsGrid({ assets }: AssetsGridProps) {
   return (
     <div className="mb-4">
-      <h2 className="text-base font-semibold text-[#0F172A] mb-3 px-1">
+      <h2 className="text-base font-semibold text-[#0F172A] mb-3 px-1 dark:text-white">
         Assets
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
