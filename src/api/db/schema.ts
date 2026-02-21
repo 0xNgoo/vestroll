@@ -1,8 +1,10 @@
-import { pgTable, uuid, varchar, timestamp, integer, boolean, pgEnum, text } from "drizzle-orm/pg-core";
+import { pgTable, uuid, varchar, timestamp, integer, boolean, pgEnum, text, index } from "drizzle-orm/pg-core";
 
 export const userStatusEnum = pgEnum("user_status", ["pending_verification", "active", "suspended"]);
 export const twoFactorMethodEnum = pgEnum("two_factor_method", ["totp", "backup_code"]);
 export const oauthProviderEnum = pgEnum("oauth_provider", ["google", "apple"]);
+export const employeeStatusEnum = pgEnum("employee_status", ["Active", "Inactive"]);
+export const employeeTypeEnum = pgEnum("employee_type", ["Freelancer", "Contractor"]);
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -23,6 +25,7 @@ export const users = pgTable("users", {
   // OAuth fields
   oauthProvider: oauthProviderEnum("oauth_provider"),
   oauthId: varchar("oauth_id", { length: 255 }),
+  organizationId: uuid("organization_id").references(() => organizations.id),
   lastLoginAt: timestamp("last_login_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -88,3 +91,28 @@ export const loginAttempts = pgTable("login_attempts", {
   failureReason: text("failure_reason"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const organizations = pgTable("organizations", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: varchar("name", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const employees = pgTable("employees", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  organizationId: uuid("organization_id").references(() => organizations.id, { onDelete: "cascade" }).notNull(),
+  firstName: varchar("first_name", { length: 255 }).notNull(),
+  lastName: varchar("last_name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  role: varchar("role", { length: 255 }).notNull(),
+  department: varchar("department", { length: 255 }),
+  type: employeeTypeEnum("type").notNull(),
+  status: employeeStatusEnum("status").default("Active").notNull(),
+  avatarUrl: varchar("avatar_url", { length: 512 }),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "set null" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}, (table) => [
+  index("employees_organization_id_idx").on(table.organizationId),
+]);
