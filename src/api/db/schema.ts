@@ -1,10 +1,19 @@
-import { pgTable, uuid, varchar, timestamp, integer, boolean, pgEnum, text } from "drizzle-orm/pg-core";
+import { pgTable, uuid, varchar, timestamp, integer, boolean, pgEnum, text, index } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 export const userStatusEnum = pgEnum("user_status", ["pending_verification", "active", "suspended"]);
 export const twoFactorMethodEnum = pgEnum("two_factor_method", ["totp", "backup_code"]);
 export const oauthProviderEnum = pgEnum("oauth_provider", ["google", "apple"]);
+export const employeeStatusEnum = pgEnum("employee_status", ["Active", "Inactive"]);
+export const employeeTypeEnum = pgEnum("employee_type", ["Freelancer", "Contractor"]);
 export const kybStatusEnum = pgEnum("kyb_status", ["not_started", "pending", "verified", "rejected"]);
+
+export const organizations = pgTable("organizations", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: varchar("name", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -30,13 +39,6 @@ export const users = pgTable("users", {
   oauthProvider: oauthProviderEnum("oauth_provider"),
   oauthId: varchar("oauth_id", { length: 255 }),
   lastLoginAt: timestamp("last_login_at"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
-
-export const organizations = pgTable("organizations", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  name: varchar("name", { length: 255 }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -113,18 +115,27 @@ export const loginAttempts = pgTable("login_attempts", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const kybVerifications = pgTable("kyb_verifications", {
+export const employees = pgTable("employees", {
   id: uuid("id").primaryKey().defaultRandom(),
-  // TODO: Migrate to organization_id when organizations table is introduced
-  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull().unique(),
-  status: kybStatusEnum("status").default("pending").notNull(),
-  rejectionReason: text("rejection_reason"),
-  submittedAt: timestamp("submitted_at"),
-export const kybStatusEnum = pgEnum("kyb_status", ["pending", "approved", "rejected"]);
+  organizationId: uuid("organization_id").references(() => organizations.id, { onDelete: "cascade" }).notNull(),
+  firstName: varchar("first_name", { length: 255 }).notNull(),
+  lastName: varchar("last_name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  role: varchar("role", { length: 255 }).notNull(),
+  department: varchar("department", { length: 255 }),
+  type: employeeTypeEnum("type").notNull(),
+  status: employeeStatusEnum("status").default("Active").notNull(),
+  avatarUrl: varchar("avatar_url", { length: 512 }),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "set null" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}, (table) => [
+  index("employees_organization_id_idx").on(table.organizationId),
+]);
 
 export const kybVerifications = pgTable("kyb_verifications", {
   id: uuid("id").primaryKey().defaultRandom(),
-  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull().unique(),
   registrationType: varchar("registration_type", { length: 255 }).notNull(),
   registrationNo: varchar("registration_no", { length: 255 }).notNull(),
   incorporationCertificatePath: varchar("incorporation_certificate_path", { length: 512 }).notNull(),
@@ -135,6 +146,7 @@ export const kybVerifications = pgTable("kyb_verifications", {
   formC02C07Url: varchar("form_c02_c07_url", { length: 1024 }),
   status: kybStatusEnum("status").default("pending").notNull(),
   rejectionReason: text("rejection_reason"),
+  submittedAt: timestamp("submitted_at"),
   reviewedAt: timestamp("reviewed_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
