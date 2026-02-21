@@ -10,6 +10,9 @@ export const users = pgTable("users", {
   lastName: varchar("last_name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   passwordHash: varchar("password_hash", { length: 255 }),
+  avatarUrl: varchar("avatar_url", { length: 500 }),
+  role: varchar("role", { length: 100 }),
+  organizationName: varchar("organization_name", { length: 255 }),
   status: userStatusEnum("status").default("pending_verification").notNull(),
   // Two-factor authentication fields
   twoFactorEnabled: boolean("two_factor_enabled").default(false).notNull(),

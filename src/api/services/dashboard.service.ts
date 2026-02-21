@@ -15,6 +15,9 @@ export class DashboardService {
       .select({
         firstName: users.firstName,
         lastName: users.lastName,
+        avatarUrl: users.avatarUrl,
+        role: users.role,
+        organizationName: users.organizationName,
       })
       .from(users)
       .where(eq(users.id, userId))
@@ -27,9 +30,9 @@ export class DashboardService {
     return {
       firstName: user.firstName,
       lastName: user.lastName,
-      avatarUrl: null,
-      role: null,
-      organizationName: null,
+      avatarUrl: user.avatarUrl,
+      role: user.role,
+      organizationName: user.organizationName,
     };
   }
 }
