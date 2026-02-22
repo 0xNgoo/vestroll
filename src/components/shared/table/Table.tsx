@@ -22,6 +22,8 @@ interface TableProps<T = any> {
   // Pagination
   showPagination?: boolean;
   itemsPerPage?: number;
+  showResultsPerPage?: boolean;
+  resultsPerPageOptions?: number[];
 
   // Selection functionality
   selectedItems?: string[];
@@ -54,7 +56,9 @@ const Table = <T extends Record<string, any>>({
   showCheckbox = true,
   showFilterHeader = true,
   showPagination = false,
-  itemsPerPage = 10,
+  itemsPerPage: initialItemsPerPage = 10,
+  showResultsPerPage = false,
+  resultsPerPageOptions = [10, 25, 50, 100],
   selectedItems = [],
   onSelectItem,
   onSelectAll,
@@ -68,9 +72,15 @@ const Table = <T extends Record<string, any>>({
   FilterIcon,
 }: TableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(initialItemsPerPage);
 
   // Calculate pagination values
   const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const handleItemsPerPageChange = (newItemsPerPage: number) => {
+    setItemsPerPage(newItemsPerPage);
+    setCurrentPage(1);
+  };
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedData = useMemo(
@@ -170,6 +180,9 @@ const Table = <T extends Record<string, any>>({
           itemsPerPage={itemsPerPage}
           totalItems={data.length}
           showInfo={true}
+          showResultsPerPage={showResultsPerPage}
+          onItemsPerPageChange={handleItemsPerPageChange}
+          resultsPerPageOptions={resultsPerPageOptions}
         />
       )}
     </div>
