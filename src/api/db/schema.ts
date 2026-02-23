@@ -7,6 +7,7 @@ export const oauthProviderEnum = pgEnum("oauth_provider", ["google", "apple"]);
 export const employeeStatusEnum = pgEnum("employee_status", ["Active", "Inactive"]);
 export const employeeTypeEnum = pgEnum("employee_type", ["Freelancer", "Contractor"]);
 export const kybStatusEnum = pgEnum("kyb_status", ["not_started", "pending", "verified", "rejected"]);
+export const milestoneStatusEnum = pgEnum("milestone_status", ["pending", "approved", "rejected"]);
 
 export const organizations = pgTable("organizations", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -165,3 +166,32 @@ export const kybVerifications = pgTable("kyb_verifications", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export const milestones = pgTable("milestones", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  milestoneName: varchar("milestone_name", { length: 255 }).notNull(),
+  amount: integer("amount").notNull(),
+  dueDate: timestamp("due_date").notNull(),
+  status: milestoneStatusEnum("status").default("pending").notNull(),
+  employeeId: uuid("employee_id").references(() => employees.id, { onDelete: "cascade" }),
+  submittedAt: timestamp("submitted_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}, (table) => [
+  index("milestones_employee_id_idx").on(table.employeeId),
+]);
+
+export const milestoneRelations = relations(milestones, (helpers: any) => ({
+  employee: helpers.one(employees, {
+    fields: [milestones.employeeId],
+    references: [employees.id],
+  }),
+}));
+
+export const employeeRelations = relations(employees, (helpers: any) => ({
+  organization: helpers.one(organizations, {
+    fields: [employees.organizationId],
+    references: [organizations.id],
+  }),
+  milestones: helpers.many(milestones),
+}));
