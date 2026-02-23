@@ -7,7 +7,13 @@ export const oauthProviderEnum = pgEnum("oauth_provider", ["google", "apple"]);
 export const employeeStatusEnum = pgEnum("employee_status", ["Active", "Inactive"]);
 export const employeeTypeEnum = pgEnum("employee_type", ["Freelancer", "Contractor"]);
 export const kybStatusEnum = pgEnum("kyb_status", ["not_started", "pending", "verified", "rejected"]);
-export const milestoneStatusEnum = pgEnum("milestone_status", ["pending", "approved", "rejected"]);
+export const contractStatusEnum = pgEnum("contract_status", ["pending_signature", "in_review", "rejected", "active", "completed"]);
+export const contractTypeEnum = pgEnum("contract_type", ["fixed_rate", "pay_as_you_go", "milestone"]);
+export const paymentTypeEnum = pgEnum("payment_type", ["crypto", "fiat"]);
+export const invoiceStatusEnum = pgEnum("invoice_status", ["pending", "approved", "unpaid", "overdue", "paid", "rejected"]);
+export const milestoneStatusEnum = pgEnum("milestone_status", ["pending", "in_progress", "completed", "approved", "rejected"]);
+export const approvalStatusEnum = pgEnum("approval_status", ["pending", "approved", "rejected"]);
+export const timeOffTypeEnum = pgEnum("time_off_type", ["paid", "unpaid"]);
 
 export const organizations = pgTable("organizations", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -147,6 +153,42 @@ export const employees = pgTable("employees", {
 }, (table) => [
   index("employees_organization_id_idx").on(table.organizationId),
 ]);
+
+export const companyProfiles = pgTable("company_profiles", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  organizationId: uuid("organization_id").references(() => organizations.id, { onDelete: "cascade" }).notNull().unique(),
+  logoUrl: varchar("logo_url", { length: 512 }),
+  brandName: varchar("brand_name", { length: 255 }).notNull(),
+  registeredName: varchar("registered_name", { length: 255 }).notNull(),
+  registrationNumber: varchar("registration_number", { length: 255 }).notNull(),
+  country: varchar("country", { length: 255 }).notNull(),
+  size: varchar("size", { length: 100 }),
+  vatNumber: varchar("vat_number", { length: 255 }),
+  website: varchar("website", { length: 512 }),
+  address: varchar("address", { length: 500 }).notNull(),
+  altAddress: varchar("alt_address", { length: 500 }),
+  city: varchar("city", { length: 255 }).notNull(),
+  region: varchar("region", { length: 255 }),
+  postalCode: varchar("postal_code", { length: 50 }),
+  billingAddress: varchar("billing_address", { length: 500 }),
+  billingAltAddress: varchar("billing_alt_address", { length: 500 }),
+  billingCity: varchar("billing_city", { length: 255 }),
+  billingRegion: varchar("billing_region", { length: 255 }),
+  billingCountry: varchar("billing_country", { length: 255 }),
+  billingPostalCode: varchar("billing_postal_code", { length: 50 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const organizationWallets = pgTable("organization_wallets", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  organizationId: uuid("organization_id").references(() => organizations.id, { onDelete: "cascade" }).notNull().unique(),
+  walletAddress: varchar("wallet_address", { length: 255 }),
+  funded: boolean("funded").default(false).notNull(),
+  fundedAt: timestamp("funded_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
 
 export const kybVerifications = pgTable("kyb_verifications", {
   id: uuid("id").primaryKey().defaultRandom(),
