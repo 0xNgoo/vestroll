@@ -7,6 +7,8 @@ export const oauthProviderEnum = pgEnum("oauth_provider", ["google", "apple"]);
 export const employeeStatusEnum = pgEnum("employee_status", ["Active", "Inactive"]);
 export const employeeTypeEnum = pgEnum("employee_type", ["Freelancer", "Contractor"]);
 export const kybStatusEnum = pgEnum("kyb_status", ["not_started", "pending", "verified", "rejected"]);
+export const leaveStatusEnum = pgEnum("leave_status", ["Pending", "Approved", "Rejected", "Cancelled",]);
+export const leaveTypeEnum = pgEnum("leave_type", ["vacation", "sick", "personal", "other",]);
 
 export const organizations = pgTable("organizations", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -151,3 +153,26 @@ export const kybVerifications = pgTable("kyb_verifications", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export const leaveRequests = pgTable("leave_requests", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  organizationId: uuid("organization_id").references(() => organizations.id, { onDelete: "cascade" }).notNull(),
+  employeeId: uuid("employee_id").references(() => employees.id, { onDelete: "cascade" }).notNull(),
+  submittedByUserId: uuid("submitted_by_user_id").references(() => users.id, { onDelete: "set null" }),
+  leaveType: leaveTypeEnum("leave_type").notNull().default("vacation"),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  totalDuration: integer("total_duration").notNull(), // in business days
+  reason: text("reason"),
+  status: leaveStatusEnum("status").notNull().default("Pending"),
+  reviewedByUserId: uuid("reviewed_by_user_id").references(() => users.id, { onDelete: "set null", }),
+  reviewedAt: timestamp("reviewed_at"),
+  rejectionReason: text("rejection_reason"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+},
+  (table) => [
+    index("leave_requests_organization_id_idx").on(table.organizationId),
+    index("leave_requests_employee_id_idx").on(table.employeeId),
+  ],
+);
